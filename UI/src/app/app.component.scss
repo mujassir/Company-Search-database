@@ -1,0 +1,12 @@
+.row {
+    display: flex;
+    flex-wrap: wrap;
+
+    .col {
+        padding: 10px;
+    }
+
+    .col-3 {
+        width: calc(100%/4);
+    }
+}

@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { TreeTableModule } from 'primeng/treetable';
+import { TableModule } from 'primeng/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,7 +38,8 @@ import { HomeComponent } from './components/home/home.component';
     InputTextModule,
     ButtonModule,
     MenubarModule,
-    TreeTableModule
+    TreeTableModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,43 +1,72 @@
 <div>
-    <div class="text-center mb-50">
+    <div *ngIf="!showDataTable" class="text-center mb-50">
         <h1>Search Database</h1>
         <h3>W1E Client/Vendor Database for Film and TV companies adn Funding opportunities</h3>
         <p>with 95 counteries, more than 875 funding programs and 165 production incentives</p>
         <div class="card flex flex-wrap justify-content-center gap-3">
             <span class="p-input-icon-right">
-                <input type="text" pInputText [(ngModel)]="value" placeholder="Search"  />
-                <i class="pi pi-search"></i>
+                <input type="text" pInputText [(ngModel)]="searchValue" placeholder="Search" />
+                <i class="pi pi-search" (click)="getDataDetails()"></i>
             </span>
-            
+
         </div>
     </div>
-    
 
-<div class='text-center bg-black'>
-    <button class="btn-filter" pButton type="submit" (click)="toggleFilterDiv()" label="Show Filter"></button>
-</div>
-    
+
+    <div class='text-center bg-black'>
+        <div class="container filterForm">
+            <form [formGroup]="filterForm">
+                <div *ngIf="showFilter" class="row">
+                    <div class="col col-3">
+                        <label>Country</label> <br>
+                        <input pInputText type="text" formControlName="Country" class="form-control" name="Country">
+                    </div>
+                    <div class="col col-3">
+                        <label>Company</label> <br>
+                        <input pInputText type="text" formControlName="TypeOfCompany" class="form-control"
+                            name="TypeOfCompany">
+                    </div>
+                    <div class="col col-3">
+                        <label>Region</label> <br>
+                        <input pInputText type="text" formControlName="Region" class="form-control" name="Region">
+                    </div>
+                    <div class="col col-3">
+                        <button class="btn-search" pButton (click)="getDataDetails()">Search</button>
+                        <button class="btn-search" style="margin-left: 5px;" pButton type="submit"
+                            (click)="showFilter = !showFilter">Hide
+                            Filter</button>
+                    </div>
+                </div>
+            </form>
+            <div class="text-center">
+                <button *ngIf="!showFilter" class="btn-filter" pButton type="submit" (click)="showFilter = !showFilter"
+                    label="Show Filter"></button>
+            </div>
+        </div>
+    </div>
+
     <!-- Table start From here -->
-    <div class="card m-lr" *ngIf="showFilter">
+    <div class="card m-lr" *ngIf="showDataTable">
         <h1>Search Result</h1>
-    <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns" class="text-color fs">
-                    {{ col.header }}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr class="fs-w">
-              <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                {{ rowData[col.field] }}
-              </td>
-            </tr>
-          </ng-template>
-          
-    </p-treeTable>
-</div>
+
+        <p-table [value]="dataTableDetails" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let col of cols" class="text-color fs">
+                        {{ col.header }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr class="fs-w">
+                    <td *ngFor="let col of cols; let i = index" class="text-left">
+                        {{ rowData[col.field] }}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 
 </div>
