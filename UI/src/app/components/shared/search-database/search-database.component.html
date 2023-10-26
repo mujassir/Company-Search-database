@@ -1,0 +1,43 @@
+<div>
+    <div class="text-center mb-50">
+        <h1>Search Database</h1>
+        <h3>W1E Client/Vendor Database for Film and TV companies adn Funding opportunities</h3>
+        <p>with 95 counteries, more than 875 funding programs and 165 production incentives</p>
+        <div class="card flex flex-wrap justify-content-center gap-3">
+            <span class="p-input-icon-right">
+                <input type="text" pInputText [(ngModel)]="value" placeholder="Search"  />
+                <i class="pi pi-search"></i>
+            </span>
+            
+        </div>
+    </div>
+    
+
+<div class='text-center bg-black'>
+    <button class="btn-filter" pButton type="submit" (click)="toggleFilterDiv()" label="Show Filter"></button>
+</div>
+    
+    <!-- Table start From here -->
+    <div class="card m-lr" *ngIf="showFilter">
+        <h1>Search Result</h1>
+    <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" class="text-color fs">
+                    {{ col.header }}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr class="fs-w">
+              <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                {{ rowData[col.field] }}
+              </td>
+            </tr>
+          </ng-template>
+          
+    </p-treeTable>
+</div>
+
+</div>
