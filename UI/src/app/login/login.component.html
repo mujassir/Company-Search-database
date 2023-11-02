@@ -1,0 +1,17 @@
+<div class="center-both vh-100">
+    <form [formGroup]="loginForm">
+        <p-panel header="Welcome To West One Entertainment">
+            <div>
+                <label>Email <sup class="text-danger">*</sup></label>
+                <input pInputText formControlName="email" />
+            </div>
+            <div>
+                <label>Password <sup class="text-danger">*</sup></label>
+                <p-password formControlName="password" [toggleMask]="true" [feedback]="false"></p-password>
+            </div>
+            <div class="mt-1">
+                <p-button label="LogIn" class="w-100" [disabled]="loginForm.invalid" [raised]="true" severity="info" (onClick)="onSubmitLogInForm()"></p-button>
+            </div>
+        </p-panel>
+    </form>
+</div>

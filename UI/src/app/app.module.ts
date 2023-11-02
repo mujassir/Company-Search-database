@@ -10,22 +10,28 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { TreeTableModule } from 'primeng/treetable';
 import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
+import { PasswordModule } from 'primeng/password';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DialogModule } from 'primeng/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { MainMenuComponent } from './components/shared/main-menu/main-menu.component';
-import { SearchDatabaseComponent } from './components/shared/search-database/search-database.component';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { SharedHeaderComponent } from './components/shared/header/header.component';
+import { SharedFooterComponent } from './components/shared/footer/footer.component';
+import { CompanyDetailComponent } from './company/detail/detail.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     LoginComponent,
-    MainMenuComponent,
-    SearchDatabaseComponent,
-    HomeComponent, 
+    SharedHeaderComponent,
+    SharedFooterComponent,
+    CompanyDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +45,10 @@ import { HomeComponent } from './components/home/home.component';
     ButtonModule,
     MenubarModule,
     TreeTableModule,
-    TableModule
+    TableModule,
+    DropdownModule,
+    PasswordModule,
+    ProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

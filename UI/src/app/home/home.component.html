@@ -1,0 +1,83 @@
+<!-- Search Data Detail -->
+<div *ngIf="companies.length == 0">
+    <div class="bg-dark py-2"></div>
+    <div class="container text-center pt-4 pb-5">
+        <h1>Search Database</h1>
+        <h3>W1E Client/Vendor Database for Film and TV companies adn Funding opportunities</h3>
+        <p>with 95 counteries, more than 875 funding programs and 165 production incentives</p>
+        <div class="pt-2">
+            <span class="p-input-icon-right w-40">
+                <!-- TODO: Company Name -->
+                <input type="text" class="w-100" pInputText [(ngModel)]="searchValue" placeholder="Search" />
+                <i class="pi pi-search cursor-pointer" (click)="getDataDetails()"></i>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Form Fields -->
+<div class="bg-dark py-2">
+    <div class="container">
+        <form [formGroup]="filterForm">
+            <div *ngIf="showFilter" class="row">
+                <div class="col">
+                    <label>Company Type</label>
+                    <p-dropdown [options]="categories" formControlName="CategoryId" optionValue="id"
+                        optionLabel="name"></p-dropdown>
+                </div>
+                <div class="col">
+                    <!-- TODO: Should be Multiselect list -->
+                    <!-- TODO: Region also be Multiselect list -->
+                    <label>Country</label>
+                    <input pInputText type="text" formControlName="Country">
+                </div>
+                <div class="col">
+                    <label>Region</label>
+                    <input pInputText type="text" formControlName="Company">
+                </div>
+                <div class="col col-12 text-center pt-2">
+                    <button [disabled]="companyLoader" pButton (click)="getDataDetails()">
+                        <p-progressSpinner *ngIf="companyLoader"></p-progressSpinner>
+                        Search
+                    </button>
+                    <button class="ml-1" pButton (click)="showFilter = !showFilter">Hide Filter</button>
+                </div>
+            </div>
+        </form>
+        <div class="text-center">
+            <button *ngIf="!showFilter" pButton (click)="showFilter = !showFilter" label="Show Filter"></button>
+        </div>
+    </div>
+</div>
+<div *ngIf="companies.length == 0 && !companyLoader" class="bg-light-grey">
+    <div class="container text-center">
+        <h2>Start Searcing...</h2>
+    </div>
+</div>
+<!-- Table start From here -->
+<div *ngIf="companies.length > 0" class="container">
+    <h1>Search results</h1>
+
+    <p-table #companyTable [value]="companies" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50]" [loading]="companyLoader" [paginator]="true"
+        styleClass="p-datatable-striped p-datatable-sm" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of companyColumns" [pSortableColumn]="col.value" class="nowrap p-1"
+                    style="width:20%">
+                    {{col.name}}
+                    <p-sortIcon [field]="col.value"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td *ngFor="let col of companyColumns" class="py-1">
+                    <a *ngIf="col.name === 'COMPANY'; else rowValue"
+                        [routerLink]="'/company/detail/' + product.companyId">{{product[col.value]}}</a>
+                    <ng-template #rowValue>{{product[col.value]}}</ng-template>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
