@@ -16,8 +16,14 @@ namespace W1EHUB.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GET()
         {
-            var companies = await _companyService.GetAllWithStaffMembersAsync();
+            var companies = await _companyService.FindAll();
             return Ok(companies);
+        }
+        [HttpGet("Search")]
+        public async Task<IActionResult> SearchCompanyAsync(string? country, string? company, string? website, int? categoryId)
+        {
+            var data = await _companyService.SearchCompanyAsync(country, company, website, categoryId);
+            return Ok(data);
         }
     }
 }

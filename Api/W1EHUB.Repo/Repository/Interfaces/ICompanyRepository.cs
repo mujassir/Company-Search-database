@@ -6,5 +6,6 @@ namespace W1EHUB.Repo.Repository.Interfaces
     public interface ICompanyRepository : IGenericRepository<Company>
     {
         Task<IEnumerable<Company>> GetAllWithStaffMembersAsync();
+        Task<IEnumerable<Company>> SearchCompanyAsync(string? country, string? company, string? website, int? categoryId);
     }
 }

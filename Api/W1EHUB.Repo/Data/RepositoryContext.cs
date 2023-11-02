@@ -13,16 +13,16 @@ namespace W1EHUB.Repo.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            var data = SampleData.SampleDataJson();
+            //var data = SampleData.SampleDataJson();
 
-            modelBuilder.Entity<Company>().HasData(data.Companies);
-            modelBuilder.Entity<Project>().HasData(data.Projects);
-            modelBuilder.Entity<StaffMember>().HasData(data.StaffMembers);
-            modelBuilder.Entity<User>().HasData(data.Users);
+            //modelBuilder.Entity<Category>().HasData(data.Projects);
+            //modelBuilder.Entity<Company>().HasData(data.Companies);
+            //modelBuilder.Entity<StaffMember>().HasData(data.StaffMembers);
+            //modelBuilder.Entity<User>().HasData(data.Users);
         }
-        public DbSet<Company> Company { get; set; }
-        public DbSet<Project> Project { get; set; }
-        public DbSet<StaffMember> StaffMember { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<StaffMember> StaffMembers { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

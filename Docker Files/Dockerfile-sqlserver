@@ -1,0 +1,9 @@
+# Use the official SQL Server 2019 image from Microsoft
+FROM mcr.microsoft.com/mssql/server:2019-latest
+
+# Set the environment variables for SQL Server
+ENV SA_PASSWORD=Your@Strong2Password
+ENV ACCEPT_EULA=Y
+
+# Expose the SQL Server port
+EXPOSE 1433

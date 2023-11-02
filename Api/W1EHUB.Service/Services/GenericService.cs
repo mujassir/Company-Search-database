@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using W1EHUB.Service.Interfaces;
 
 namespace W1EHUB.Service.Services
@@ -13,39 +12,53 @@ namespace W1EHUB.Service.Services
             _repo = repo;
         }
 
-        protected IGenericRepository<T> Repo
+        public async Task<bool> Any(Expression<Func<T, bool>> expression)
         {
-            get { return _repo; }
-        }
-        public async Task<IEnumerable<T>> GetAllAsync()
-        {
-            return await _repo.GetAllAsync();
+            return await _repo.Any(expression);
         }
 
-        public async Task<IEnumerable<T>> FindByAsync(Expression<Func<T, bool>> predicate)
+        public async Task<T?> Find(T entity)
         {
-            return await _repo.FindByAsync(predicate);
+            return await _repo.Find(entity);
         }
-
-        public async Task<T> GetAsync(object id)
+        public async Task<T?> Find(object id)
         {
-            return await _repo.GetAsync(id);
+            return await _repo.Find(id);
         }
-
-        public void Add(T entity)
+        public async Task<IQueryable<T>> FindAll(bool hasChangesTracked)
         {
-            _repo.Add(entity);
+            return await _repo.FindAll(hasChangesTracked);
         }
-
-        public void Update(T entity)
+        public async Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression, bool hasChangesTracked)
         {
-            _repo.Update(entity);
+            return await _repo.FindByCondition(expression, hasChangesTracked);
         }
-
-        public void Delete(object id)
+        public async Task<T> Create(T entity)
         {
-           _repo.Delete(id);
+            return await _repo.Create(entity);
         }
+        public async Task Create(T[] entities)
+        {
+            await _repo.Create(entities);
+        }
+        public async Task<T> Update(T entity)
+        {
+            return await _repo.Update(entity);
+        }
+        public void UpdateChanges(T entity)
+        {
+            _repo.UpdateChanges(entity);
+        }
+        public async Task Update(T[] entities) => await _repo.Update(entities);
+        public async Task<T> Delete(T entity)
+        {
+            return await _repo.Delete(entity);
+        }
+        public async Task Delete(T[] entities) => await _repo.Update(entities);
 
+        public async Task Save()
+        {
+            await _repo.Save();
+        }
     }
 }

@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using W1EHUB.Core.Dtos;
+﻿using W1EHUB.Core.Dtos;
 using W1EHUB.Core.Model;
-using W1EHUB.Repo.Data;
+using W1EHUB.Repo.Repository;
 using W1EHUB.Repo.Repository.Interfaces;
 using W1EHUB.Service.Interfaces;
 
@@ -14,15 +13,28 @@ namespace W1EHUB.Service.Services
         {
             _companyRepository = companyRepository;
         }
-
-        public async Task<IEnumerable<CompanyDto>> GetAllWithStaffMembersAsync()
+        public async Task<IEnumerable<CompanyDto>> SearchCompanyAsync(string? country, string? company, string? website, int? categoryId)
+        {
+            var data = await _companyRepository.SearchCompanyAsync(country, company, website, categoryId);
+            return data.Select(c => new CompanyDto
+                {
+                    Name = c.Name,
+                    CategoryId = c.CategoryId,
+                    Country = c.Country,
+                    Website = c.Website,
+                    Type = c.Type,
+                    CategoryName = c.Category.Name
+                })
+                .ToList();
+        }
+        public async Task<IEnumerable<Company>> GetAllWithStaffMembersAsync()
         {
             var companies = await _companyRepository.GetAllWithStaffMembersAsync();
-            return companies.Select(company => new CompanyDto
+            return companies.Select(company => new Company
             {
                 Name = company.Name,
                 // Map other properties
-                StaffMembers = company.StaffMembers.Select(staff => new CompanyStaffMemberDto
+                StaffMembers = company.StaffMembers.Select(staff => new StaffMember
                 {
                     Name = staff.Name,
                     Role = staff.Role

@@ -7,7 +7,7 @@ namespace W1EHUB.Repo
         public static SampleDataDto SampleDataJson()
         {
             var companies = new List<Company>();
-            var projects = new List<Project>();
+            var categories = new List<Category>();
             var staffMembers = new List<StaffMember>();
             var users = new List<User>()
             {
@@ -23,13 +23,8 @@ namespace W1EHUB.Repo
                 {
                     Id = companies.Count() + 1,
                     Country = $"Country {i}",
-                    Region = $"Region {i}",
-                    TypeOfCompany = $"Type Of Company{i}",
                     Name = $"Company {i}",
                     Website = $"www.company{i}.com",
-                    Email = $"contact@company{i}.com",
-                    Telephone = $"123-456-{i}000",
-                    Address = $"{i} Main St, Sampleville"
                 };
 
                 for (int j = 1; j <= 2; j++)
@@ -48,17 +43,12 @@ namespace W1EHUB.Repo
 
                 for (int k = 1; k <= 3; k++)
                 {
-                    var project = new Project
+                    var project = new Category
                     {
-                        Id = projects.Count() + 1,
-                        Title = $"Project {k} for Company {i}",
-                        Nature = $"Project {k} Nature",
-                        Level = $"Level {k}",
-                        Type = $"Project {k} Type",
-                        Year = 2023,
-                        CompanyId = company.Id
+                        Id = categories.Count() + 1,
+                        Name = $"Project {k} for Company {i}",
                     };
-                    projects.Add(project);
+                    categories.Add(project);
                 }
             }
 
@@ -67,7 +57,7 @@ namespace W1EHUB.Repo
             return new SampleDataDto()
             {
                 Companies = companies,
-                Projects = projects,
+                Categories = categories,
                 StaffMembers = staffMembers,
                 Users = users,
             };
@@ -76,7 +66,7 @@ namespace W1EHUB.Repo
     public class SampleDataDto
     {
         public List<Company> Companies { get; set; }
-        public List<Project> Projects { get; set; }
+        public List<Category> Categories { get; set; }
         public List<StaffMember> StaffMembers { get; set; }
         public List<User> Users { get; set; }
     }
