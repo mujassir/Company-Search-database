@@ -12,7 +12,10 @@ namespace W1EHUB.Repo.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            modelBuilder.Entity<User>().HasData(new[]
+            {
+                new User { Id = 1, Email = "abc@email.com", Password = "abc", CreateAt = DateTime.Now }
+            });
             //var data = SampleData.SampleDataJson();
 
             //modelBuilder.Entity<Category>().HasData(data.Projects);
@@ -23,6 +26,8 @@ namespace W1EHUB.Repo.Data
         public DbSet<Company> Companies { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<StaffMember> StaffMembers { get; set; }
+        public DbSet<Favorite> Favorite { get; set; }
+        public DbSet<FavoriteCompany> FavoriteCompany { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }

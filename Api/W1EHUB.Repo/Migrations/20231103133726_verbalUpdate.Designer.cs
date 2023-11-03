@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using W1EHUB.Repo.Data;
 
@@ -11,9 +12,11 @@ using W1EHUB.Repo.Data;
 namespace W1EHUB.Repo.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20231103133726_verbalUpdate")]
+    partial class verbalUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,15 +215,6 @@ namespace W1EHUB.Repo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreateAt = new DateTime(2023, 11, 3, 19, 0, 55, 742, DateTimeKind.Local).AddTicks(4039),
-                            Email = "abc@email.com",
-                            Password = "abc"
-                        });
                 });
 
             modelBuilder.Entity("W1EHUB.Core.Model.Company", b =>

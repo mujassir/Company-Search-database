@@ -4,8 +4,10 @@
     {
         public string Name { get; set; }
         public string? Country { get; set; }
+        public string? Region { get; set; }
         public string? Website { get; set; }
         public string? Type { get; set; }
+        public string? Description { get; set; }
         public string OldDetail { get; set; }
 
         // Foreign key to link to the associated company

@@ -24,6 +24,10 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IStaffMemberRepository, StaffMemberRepository>();
 builder.Services.AddScoped<IStaffMemberService, StaffMemberService>();
+builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+builder.Services.AddScoped<IFavoriteService, FavoriteService>();
+builder.Services.AddScoped<IFavoriteCompanyRepository, FavoriteCompanyRepository>();
+builder.Services.AddScoped<IFavoriteCompanyService, FavoriteCompanyService>();
 
 builder.Services.AddCors(options =>
  {

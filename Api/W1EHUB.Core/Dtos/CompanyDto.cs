@@ -7,6 +7,7 @@ namespace W1EHUB.Core.Dtos
     {
         public string Name { get; set; }
         public string? Country { get; set; }
+        public string? Region { get; set; }
         public string? Website { get; set; }
         public string? Type { get; set; }
         public string OldDetail { get; set; }
