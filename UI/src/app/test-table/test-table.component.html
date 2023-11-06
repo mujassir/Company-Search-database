@@ -1,0 +1,51 @@
+
+  <div class="card">
+    <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="code" style="width:10%">Level <p-sortIcon field="code"></p-sortIcon></th>
+              <th pSortableColumn="name" style="width:20%">Company
+                <p-sortIcon field="name"></p-sortIcon></th>
+              <th pSortableColumn="category" style="width:20%">Country
+                <p-sortIcon field="category"></p-sortIcon></th>
+              <th pSortableColumn="quantity" style="width:20%">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
+              <th pSortableColumn="price" style="width:20%">Price <p-sortIcon field="price"></p-sortIcon></th>
+              <th style="width:20%">Action <p-sortIcon field="price"></p-sortIcon></th>
+            </tr>
+          </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td><span class="levelicon">N</span></td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.category }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.price | currency: 'USD' }}</td>
+          <td>
+            <p-button (click)="showDialog(product)" icon="pi pi-bookmark" label=""></p-button>
+            <p-dialog header="Save" [(visible)]="visible" [style]="{ width: '25vw' }">
+              <div class="flex flex-column gap-2">
+                <div *ngFor="let category of categories" class="field-checkbox" style="padding: 10px">
+                  <p-checkbox
+                    name="group"
+                    [value]="category"
+                    [(ngModel)]="selectedCategories[product.id] && selectedCategories[product.id][category.key]"
+                    (ngModelChange)="onCheckboxChange(product.id, category.key, $event)"
+                  ></p-checkbox>
+                  <label [for]="category.key" class="pl">{{ category.name }}</label>
+                </div>
+                <div *ngIf="creatingNew">
+                  <!-- Input field for creating new -->
+                  <input type="text" [(ngModel)]="customName" placeholder="Enter your value" />
+                </div>
+                <div class="flex flex-row">
+                  <p-button (click)="saveFavoriteData(product.id)" label="Save" class="mr-3"></p-button>
+                  <p-button (click)="toggleInputField()" label="Create New"></p-button>
+                </div>
+              </div>
+            </p-dialog>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  
