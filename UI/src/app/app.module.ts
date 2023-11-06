@@ -14,8 +14,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DialogModule } from 'primeng/dialog';
-import { CheckboxModule } from 'primeng/checkbox';
-import { MultiSelectModule } from 'primeng/multiselect';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -23,7 +22,6 @@ import { LoginComponent } from './login/login.component';
 import { SharedHeaderComponent } from './components/shared/header/header.component';
 import { SharedFooterComponent } from './components/shared/footer/footer.component';
 import { CompanyDetailComponent } from './company/detail/detail.component';
-import { TestTableComponent } from './test-table/test-table.component';
 
 
 @NgModule({
@@ -34,7 +32,6 @@ import { TestTableComponent } from './test-table/test-table.component';
     SharedHeaderComponent,
     SharedFooterComponent,
     CompanyDetailComponent,
-    TestTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,8 +40,6 @@ import { TestTableComponent } from './test-table/test-table.component';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    CheckboxModule,
-    DialogModule,
     PanelModule,
     InputTextModule,
     ButtonModule,
@@ -54,7 +49,6 @@ import { TestTableComponent } from './test-table/test-table.component';
     DropdownModule,
     PasswordModule,
     ProgressSpinnerModule,
-    MultiSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

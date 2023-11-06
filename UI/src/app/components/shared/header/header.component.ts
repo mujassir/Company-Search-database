@@ -18,7 +18,7 @@ export class SharedHeaderComponent {
       },
       {
         label: 'Production',
-        routerLink: '/testingTable',
+        routerLink: '/login',
         items: [
           {
             label: 'Scripted',

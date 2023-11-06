@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { CompanyDetailComponent } from './company/detail/detail.component';
-import {TestTableComponent} from './test-table/test-table.component'
 const routes: Routes = [
   {
     path: '',
@@ -17,11 +16,6 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-  {
-    path: 'testingTable',
-    component:TestTableComponent 
-
-  }
 ];
 
 @NgModule({
