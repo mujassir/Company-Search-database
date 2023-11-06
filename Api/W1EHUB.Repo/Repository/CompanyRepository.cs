@@ -21,14 +21,14 @@ namespace W1EHUB.Repo.Repository
                 .Include(company => company.StaffMembers)
                 .ToListAsync();
         }
-        public async Task<IEnumerable<Company>> SearchCompanyAsync(string? country, string? region, int? categoryId, string? company, string? website)
+        public async Task<IEnumerable<Company>> SearchCompanyAsync(string? country, string? region, int[] categoryId, string? company, string? website)
         {
             return await _context.Companies
                 .Include(c => c.Category)
                 .Where(s =>
                     (string.IsNullOrEmpty(country) || s.Country == country) &&
                     (string.IsNullOrEmpty(region) || s.Region == region) &&
-                    (categoryId == null || s.CategoryId == categoryId) &&
+                    (categoryId == null || categoryId.Contains(s.CategoryId)) &&
                     (string.IsNullOrEmpty(company) || s.Name == company) &&
                     (string.IsNullOrEmpty(website) || s.Website == website))
                 .ToListAsync();

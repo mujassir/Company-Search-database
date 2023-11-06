@@ -17,9 +17,9 @@ namespace W1EHUB.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GET(int favoriteId)
+        public async Task<IActionResult> GET(int userId, int companyId)
         {
-            var data = await _favoriteService.GetFavoriteCompaniesByIdAsync(favoriteId);
+            var data = await _favoriteService.GetFavoriteCompaniesByIdAsync(userId, companyId);
             return Ok(data);
         }
         [HttpPost]

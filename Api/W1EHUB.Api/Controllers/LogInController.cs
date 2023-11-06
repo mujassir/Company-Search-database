@@ -11,7 +11,7 @@ namespace W1EHUB.Api.Controllers
         [HttpPost]
         public IActionResult LogInUser(LogInUser_Payload User)
         {
-            if (!(User.Email == "Abc" && User.Password == "abc"))
+            if (!(User.Email == "abc@email.com" && User.Password == "abc"))
                 return BadRequest("Invalid User!");
 
             LogInUser_Response responseData = new ()

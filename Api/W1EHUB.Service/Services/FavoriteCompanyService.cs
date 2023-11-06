@@ -12,9 +12,9 @@ namespace W1EHUB.Service.Services
             _favoriteRepository = favoriteRepository;
         }
 
-        public async Task<IEnumerable<FavoriteCompany>> GetFavoriteCompaniesByIdAsync(int id)
+        public async Task<IEnumerable<FavoriteCompany>> GetFavoriteCompaniesByIdAsync(int userId, int companyId)
         {
-            return await _favoriteRepository.GetFavoriteCompaniesByIdAsync(id);
+            return await _favoriteRepository.GetFavoriteCompaniesByIdAsync(userId, companyId);
         }
     }
 }

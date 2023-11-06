@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 })
 export class AuthService {
     private _isLoggedIn = new BehaviorSubject<boolean>(false);
+    apiUrl = "https://localhost:7047";
 
     constructor(private http: HttpService, private router: Router) { }
 
@@ -21,7 +22,7 @@ export class AuthService {
     }
 
     async LogIn(user: any) {
-        this.http.SendRequest('get', "https://api.npoint.io/63b43a77637fa1a39b57").subscribe((response) => {
+        this.http.SendRequest('post', this.apiUrl + '/login', user).subscribe((response) => {
             localStorage.setItem('user', JSON.stringify(response))
             this._isLoggedIn.next(true)
             this.router.navigate(['/'])

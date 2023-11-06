@@ -14,12 +14,12 @@ namespace W1EHUB.Repo.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<FavoriteCompany>> GetFavoriteCompaniesByIdAsync(int id)
+        public async Task<IEnumerable<FavoriteCompany>> GetFavoriteCompaniesByIdAsync(int userId, int companyId)
         {
             return await _context.FavoriteCompany
-                .Where(f => f.FavoriteId == id)
                 .Include(a => a.Company)
                 .Include(a => a.Favorite)
+                .Where(f => f.Favorite.UserId == userId && f.CompanyId == companyId)
                 .ToListAsync();
         }
     }

@@ -6,8 +6,10 @@ form {
 
     .p-inputtext,
     .p-dropdown,
-    .p-password {
+    .p-password,
+    .p-multiselect {
         width: 100% !important;
+        color: #000;
     }
 
 }

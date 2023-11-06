@@ -20,9 +20,11 @@ namespace W1EHUB.Api.Controllers
             return Ok(companies);
         }
         [HttpGet("Search")]
-        public async Task<IActionResult> SearchCompanyAsync(string? country, string? region, int? categoryId, string? company, string? website)
+        public async Task<IActionResult> SearchCompanyAsync(string? country, string? region, string? categoryId, string? company, string? website)
         {
-            var data = await _companyService.SearchCompanyAsync(country, region, categoryId, company, website);
+            var categoryIds = categoryId?.Split(",").Select(int.Parse).ToArray() ?? null;
+
+            var data = await _companyService.SearchCompanyAsync(country, region, categoryIds, company, website);
             return Ok(data);
         }
     }

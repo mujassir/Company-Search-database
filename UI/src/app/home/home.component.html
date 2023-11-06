@@ -3,10 +3,10 @@
     <div class="bg-dark py-2"></div>
     <div class="container text-center pt-4 pb-5">
         <h1>Search Database</h1>
-        <h3>WELCOME TO THE W1E HUB! A DATABASE FOR FILM & TV COMPANIES, ALONG WITH DOMESTIC 
+        <h3>WELCOME TO THE W1E HUB! A DATABASE FOR FILM & TV COMPANIES, ALONG WITH DOMESTIC
             AND FOREIGN FUNDING OPPORTUNITIES.</h3>
         <div class="pt-2">
-            
+
             <!-- TODO: Company Name -->
             <h3>West One Entertainment</h3>
             <span class="p-input-icon-right w-40">
@@ -21,31 +21,20 @@
 <div class="bg-dark py-2">
     <div class="container">
         <form [formGroup]="filterForm">
-            <div *ngIf="showFilter" class="row">
-                <div class="col">
+            <div *ngIf="showFilter" class="row justify-center">
+                <div class="col col-3">
                     <label>Company Type</label>
-                    <p-multiSelect [options]="categories"
-                     formControlName="CategoryId"
-                      optionLabel="name"
-                      placeholder="Select Company"></p-multiSelect>
-                    
+                    <p-multiSelect [options]="categories" formControlName="CategoryId" optionValue="id"
+                        optionLabel="name" placeholder="Select Type"></p-multiSelect>
                 </div>
-                    <!-- TODO: Should be Multiselect list -->
-                    <!-- TODO: Region also be Multiselect list -->
-                    <div class="col">
-                        <label>Country</label>
-                        <p-multiSelect [options]="countries"
-                         formControlName="Country"
-                          optionLabel="name"
-                          placeholder="Select Countries"></p-multiSelect>
-                    </div>
-                    <div class="col">
-                        <label>Region</label>
-                        <p-multiSelect [options]="regions"
-                         formControlName="Region"
-                          optionLabel="name"
-                          placeholder="Select Regions"></p-multiSelect>
-                      </div>
+                <div class="col col-3">
+                    <label>Country</label>
+                    <input pInputText type="text" formControlName="Country">
+                </div>
+                <div class="col col-3">
+                    <label>Region</label>
+                    <input pInputText type="text" formControlName="Region">
+                </div>
                 <div class="col col-12 text-center pt-2">
                     <button [disabled]="companyLoader" pButton (click)="getDataDetails()">
                         <p-progressSpinner *ngIf="companyLoader"></p-progressSpinner>
@@ -80,15 +69,22 @@
         <ng-template pTemplate="body" let-product>
             <tr>
                 <td *ngFor="let col of companyColumns" class="py-1">
-                    <a *ngIf="col.name === 'COMPANY'; else rowValue"
-                        [routerLink]="'/company/detail/' + product.companyId">{{product[col.value]}}</a>
-                    <ng-template #rowValue>{{product[col.value]}}</ng-template>
+                    <div [ngSwitch]="col.value">
+                        <a *ngSwitchCase="'name'"
+                            [routerLink]="'/company/detail/' + product.id">{{product[col.value]}}</a>
+
+                        <p-button *ngSwitchCase="'action'" icon=" pi pi-heart" [rounded]="true" [text]="true"
+                            severity="help" (onClick)="clickFavoriteBtn(product)"></p-button>
+
+                        <span *ngSwitchDefault>{{product[col.value]}}</span>
+                    </div>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
-
-<div class="container">
-    <app-test-table></app-test-table>
+<div *ngIf="showFavoriteDialog">
+    <p-dialog header="Favorite List" [(visible)]="showFavoriteDialog" [style]="{width: '300px'}">
+        <app-add-to-favorite [company]="SelectedCompany"></app-add-to-favorite>
+    </p-dialog>
 </div>
