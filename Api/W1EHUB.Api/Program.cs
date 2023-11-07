@@ -28,6 +28,10 @@ builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 builder.Services.AddScoped<IFavoriteService, FavoriteService>();
 builder.Services.AddScoped<IFavoriteCompanyRepository, FavoriteCompanyRepository>();
 builder.Services.AddScoped<IFavoriteCompanyService, FavoriteCompanyService>();
+builder.Services.AddScoped<IRegionRepository, RegionRepository>();
+builder.Services.AddScoped<IRegionService, RegionService>();
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+builder.Services.AddScoped<ICountryService, CountryService>();
 
 builder.Services.AddCors(options =>
  {
