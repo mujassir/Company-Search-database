@@ -16,13 +16,10 @@ export class AppComponent implements OnInit {
     this.authService.AutoLogedIn()
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.isLoggedIn$.subscribe(isLoggedIn => {
-      if (!isLoggedIn) {
-        // Redirect to the login page if not logged in
-        this.router.navigate(['/login']);
-      } else {
-        // Redirect to the Home page if logged in
-        this.router.navigate(['/']);
-      }
+
+      if (!isLoggedIn) this.router.navigate(['/login']);
+      if (!isLoggedIn && location.pathname === "/login") this.router.navigate(['/']);
+
     });
 
   }

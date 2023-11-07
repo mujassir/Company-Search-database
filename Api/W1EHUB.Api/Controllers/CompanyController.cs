@@ -19,6 +19,13 @@ namespace W1EHUB.Api.Controllers
             var companies = await _companyService.FindAll();
             return Ok(companies);
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GETById(int id)
+        {
+            var company = await _companyService.GetByIdWithStaffMembersAsync(id);
+            if(company == null) return NotFound("Company Not Found!");
+            return Ok(company);
+        }
         [HttpGet("Search")]
         public async Task<IActionResult> SearchCompanyAsync(string? country, string? region, string? categoryId, string? company, string? website)
         {

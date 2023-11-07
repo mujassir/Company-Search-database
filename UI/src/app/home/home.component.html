@@ -1,5 +1,5 @@
 <!-- Search Data Detail -->
-<div *ngIf="companies.length == 0">
+<div>
     <div class="bg-dark py-2"></div>
     <div class="container text-center pt-4 pb-5">
         <h1>Search Database</h1>
@@ -53,7 +53,6 @@
 <!-- Table start From here -->
 <div *ngIf="companies.length > 0" class="container">
     <h1>Search results</h1>
-
     <p-table #companyTable [value]="companies" [rows]="10" [showCurrentPageReport]="true"
         [rowsPerPageOptions]="[10, 25, 50]" [loading]="companyLoader" [paginator]="true"
         styleClass="p-datatable-striped p-datatable-sm" [tableStyle]="{'min-width': '50rem'}">

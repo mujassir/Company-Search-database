@@ -43,5 +43,32 @@ namespace W1EHUB.Service.Services
                 }).ToList()
             }).ToList();
         }
+
+        public async Task<CompanyDto> GetByIdWithStaffMembersAsync(int id)
+        {
+            var company = await _companyRepository.GetByIdWithStaffMembersAsync(id);
+            return new CompanyDto
+            {
+                Id = company.Id,
+                Name = company.Name,
+                Description = company.Description,
+                Country = company.Country,
+                Region = company.Region,
+                Website = company.Website,
+                Type = company.Type,
+                OldDetail = company.OldDetail,
+                CategoryId = company.CategoryId,
+                CategoryName = company.Category.Name,
+                StaffMembers = company.StaffMembers.Select(member => new CompanyStaffMemberDto
+                {
+                    Id = member.Id,
+                    Name = member.Name,
+                    Role = member.Role,
+                    Email = member.Email,
+                    Phone = member.Phone,
+                    CompanyId = member.CompanyId,
+                }).ToList()
+            };
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace W1EHUB.Service.Interfaces
     public interface ICompanyService: IGenericService<Company>
     {
         Task<IEnumerable<Company>> GetAllWithStaffMembersAsync();
+        Task<CompanyDto> GetByIdWithStaffMembersAsync(int id);
         Task<IEnumerable<CompanyDto>> SearchCompanyAsync(string? country, string? region, int[] categoryId, string? company, string? website);
     }
 }

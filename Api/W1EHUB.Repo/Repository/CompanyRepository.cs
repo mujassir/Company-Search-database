@@ -21,6 +21,17 @@ namespace W1EHUB.Repo.Repository
                 .Include(company => company.StaffMembers)
                 .ToListAsync();
         }
+
+        public async Task<Company> GetByIdWithStaffMembersAsync(int id)
+        {
+            var company = await _context.Companies
+                .Where(company => company.Id == id)
+                .Include(company => company.StaffMembers)
+                .Include(company => company.Category)
+                .FirstOrDefaultAsync();
+            return company;
+        }
+
         public async Task<IEnumerable<Company>> SearchCompanyAsync(string? country, string? region, int[] categoryId, string? company, string? website)
         {
             return await _context.Companies

@@ -3,6 +3,7 @@ body {
     padding: 0;
     box-sizing: border-box;
 }
+
 .center-both {
     display: flex;
     justify-content: center;
@@ -36,7 +37,6 @@ body {
 .col {
     flex: 1;
     padding: 5px;
-    padding-bottom: 0;
     box-sizing: border-box;
 }
 
@@ -247,6 +247,18 @@ body {
     color: rgb(199, 0, 0);
 }
 
+.align-self-start {
+    align-self: start
+}
+
+.align-self-center {
+    align-self: center
+}
+
+.align-self-end {
+    align-self: end
+}
+
 // Border classes
 .border {
     border: 1px solid #ccc;
@@ -306,6 +318,17 @@ body {
 .bg-primary {
     background-color: #007bff;
     color: #fff; // Text color for better contrast
+
+    button {
+        color: #fff;
+    }
+
+    button:hover {
+        color: #007bff;
+    }
+    .p-button-icon-only:hover {
+        color: #fff;
+    }
 }
 
 .bg-secondary {
@@ -317,10 +340,12 @@ body {
     background-color: #28a745;
     color: #fff;
 }
+
 .bg-dark {
     background-color: #222222;
     color: #fff;
 }
+
 .bg-light-grey {
     background-color: rgb(241, 241, 241);
 }
@@ -579,6 +604,17 @@ table {
     th,
     td {
         padding: 5px 2px;
+    }
+}
+
+.table-stripped {
+    thead {
+        background-color: #ccc;
+    }
+    tbody {
+        tr:nth-child(even) {
+            background-color: rgb(245, 245, 245);
+        }
     }
 }
 

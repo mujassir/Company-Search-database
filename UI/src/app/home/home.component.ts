@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
     })
     this.companyService.companies$.subscribe(data => {
       this.companies = data;
-      if (data.length > 0) {
+      if (data.length > 10) {
         setTimeout(() => {
           this.companyTable.first = 1;
         }, 100);
