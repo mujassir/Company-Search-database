@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class CompanyService {
   private _companies$ = new BehaviorSubject<any>([]);
   private _companyLoader$ = new BehaviorSubject<boolean>(false);
-  
+
   private _company$ = new BehaviorSubject<any>([]);
 
   apiUrl = "https://localhost:7047";
@@ -17,12 +17,12 @@ export class CompanyService {
 
   companies$ = this._companies$.asObservable()
   companyLoader$ = this._companyLoader$.asObservable()
-  
+
   company$ = this._company$.asObservable()
 
   GetCompanies(payload: any) {
     this._companyLoader$.next(true)
-    this.http.SendRequest("get", `${this.apiUrl}/Company/Search?country=${payload.Country}&company=${payload.Company}&website=${payload.Website}&categoryId=${payload.CategoryId}`)
+    this.http.SendRequest("get", `${this.apiUrl}/Company/Search?country=${payload.Country || ''}&company=${payload.Company || ''}&website=${payload.Website || ''}&categoryId=${payload.CategoryId || ''}&region=${payload.Region || ''}`)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           this._companies$.next([])
