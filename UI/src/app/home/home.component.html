@@ -10,8 +10,10 @@
             <!-- TODO: Company Name -->
             <h3>West One Entertainment</h3>
             <span class="p-input-icon-right w-40">
-                <input type="text" class="w-100" pInputText [(ngModel)]="searchValue" placeholder="Search" />
-                <i class="pi pi-search cursor-pointer" (click)="getDataDetails()"></i>
+                <input type="text" class="w-100" pInputText [(ngModel)]="searchValue" placeholder="Search"
+                    (keyup)="getDataDetails()" />
+                <i [class]="companyLoader ? 'pi cursor-pointer pi-spin pi-spinner' : 'pi cursor-pointer pi-search'"
+                    (click)="getDataDetails()"></i>
             </span>
         </div>
     </div>
@@ -25,27 +27,27 @@
                 <div class="col col-3">
                     <label>Company Type</label>
                     <p-multiSelect [options]="categories" formControlName="CategoryId" optionValue="id"
-                      optionLabel="name" placeholder="Select Type"></p-multiSelect>
-                  </div>
-                  
-                  <div class="col col-3">
+                        optionLabel="name" placeholder="Select Type" [showClear]="true"></p-multiSelect>
+                </div>
+
+                <div class="col col-3">
                     <label>Country</label>
-                    <p-multiSelect [options]="countries" formControlName="Country" 
-                    optionValue="value" optionLabel="label" placeholder="Select Country"></p-multiSelect>
-                  </div>
-                  
-                  <div class="col col-3">
+                    <p-multiSelect [options]="countries" formControlName="Country" optionValue="name" optionLabel="name"
+                        placeholder="Select Country" [showClear]="true"></p-multiSelect>
+                </div>
+
+                <div class="col col-3">
                     <label>Region</label>
-                    <p-multiSelect [options]="regions" formControlName="Region" 
-                    optionValue="value" optionLabel="label" placeholder="Select Region"></p-multiSelect>
-                  </div>
-                  
-                  <div class="col col-12 text-center pt-2">
+                    <p-multiSelect [options]="regions" formControlName="Region" optionValue="name" optionLabel="name"
+                        placeholder="Select Region" [showClear]="true"></p-multiSelect>
+                </div>
+
+                <div class="col col-12 text-center pt-2">
                     <button [disabled]="companyLoader" pButton (click)="getDataDetails()">
-                      <p-progressSpinner *ngIf="companyLoader"></p-progressSpinner>
-                      Search
+                        <p-progressSpinner *ngIf="companyLoader"></p-progressSpinner>
+                        Search
                     </button>
-                  </div>
+                </div>
             </div>
         </form>
         <div class="text-center">
