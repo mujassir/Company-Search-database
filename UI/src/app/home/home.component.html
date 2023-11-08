@@ -25,23 +25,27 @@
                 <div class="col col-3">
                     <label>Company Type</label>
                     <p-multiSelect [options]="categories" formControlName="CategoryId" optionValue="id"
-                        optionLabel="name" placeholder="Select Type"></p-multiSelect>
-                </div>
-                <div class="col col-3">
+                      optionLabel="name" placeholder="Select Type"></p-multiSelect>
+                  </div>
+                  
+                  <div class="col col-3">
                     <label>Country</label>
-                    <input pInputText type="text" formControlName="Country">
-                </div>
-                <div class="col col-3">
+                    <p-multiSelect [options]="countries" formControlName="Country" 
+                    optionValue="value" optionLabel="label" placeholder="Select Country"></p-multiSelect>
+                  </div>
+                  
+                  <div class="col col-3">
                     <label>Region</label>
-                    <input pInputText type="text" formControlName="Region">
-                </div>
-                <div class="col col-12 text-center pt-2">
+                    <p-multiSelect [options]="regions" formControlName="Region" 
+                    optionValue="value" optionLabel="label" placeholder="Select Region"></p-multiSelect>
+                  </div>
+                  
+                  <div class="col col-12 text-center pt-2">
                     <button [disabled]="companyLoader" pButton (click)="getDataDetails()">
-                        <p-progressSpinner *ngIf="companyLoader"></p-progressSpinner>
-                        Search
+                      <p-progressSpinner *ngIf="companyLoader"></p-progressSpinner>
+                      Search
                     </button>
-                    <button class="ml-1" pButton (click)="showFilter = !showFilter">Hide Filter</button>
-                </div>
+                  </div>
             </div>
         </form>
         <div class="text-center">
