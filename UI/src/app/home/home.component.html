@@ -75,8 +75,9 @@
             <tr>
                 <td *ngFor="let col of companyColumns" class="py-1">
                     <div [ngSwitch]="col.value">
-                        <a *ngSwitchCase="'name'"
-                            [routerLink]="'/company/detail/' + product.id">{{product[col.value]}}</a>
+                        <a *ngSwitchCase="'name'" [routerLink]="GetDetailPageLink(product)">
+                            {{product[col.value]}}
+                        </a>
 
                         <p-button *ngSwitchCase="'action'" icon=" pi pi-heart" [rounded]="true" [text]="true"
                             severity="help" (onClick)="clickFavoriteBtn(product)"></p-button>

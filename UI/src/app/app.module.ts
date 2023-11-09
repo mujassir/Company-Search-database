@@ -24,6 +24,7 @@ import { SharedHeaderComponent } from './components/shared/header/header.compone
 import { SharedFooterComponent } from './components/shared/footer/footer.component';
 import { CompanyDetailComponent } from './company/detail/detail.component';
 import { AddToFavoriteComponent } from './components/company/add-to-favorite/add-to-favorite.component';
+import { CompanyOlffiDetailComponent } from './company/olffi-detail/olffi-detail.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { AddToFavoriteComponent } from './components/company/add-to-favorite/add
     SharedFooterComponent,
     CompanyDetailComponent,
     AddToFavoriteComponent,
+    CompanyOlffiDetailComponent,
   ],
   imports: [
     BrowserModule,

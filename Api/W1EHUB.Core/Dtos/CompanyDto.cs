@@ -3,9 +3,10 @@ namespace W1EHUB.Core.Dtos
 {
     public class CompanyDto
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
+        public string? CompanyType { get; set; }
         public string? Country { get; set; }
         public string? Region { get; set; }
         public string? Website { get; set; }
@@ -16,5 +17,7 @@ namespace W1EHUB.Core.Dtos
 
         // Navigation property to represent the staff members associated with the company
         public List<CompanyStaffMemberDto> StaffMembers { get; set; } = new List<CompanyStaffMemberDto>();
+        public List<CompanyProjectDto> Projects { get; set; } = new List<CompanyProjectDto>();
+        public List<CompanyProgramDto> Programs { get; set; } = new List<CompanyProgramDto>();
     }
 }

@@ -1,0 +1,86 @@
+<div class="bg-dark py-2"></div>
+<h1 class="text-center my-5">{{ company.name }}</h1>
+
+<div class="bg-primary">
+    <div class="container p-0">
+        <div class="row">
+            <div class="col col-6 p-1">
+                <p-button routerLink="/" icon="pi pi-arrow-left" label="Back to list" [text]="true"
+                    [plain]="true"></p-button>
+            </div>
+            <div class="col col-6 text-right">
+                <p-button icon=" pi pi-heart" [rounded]="true" [text]="true" severity="help"
+                    (onClick)="clickFavoriteBtn()"></p-button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col col-8">
+            <h2 class="mb-1">About</h2>
+            <div class="text-justify" [innerHTML]="HTMLSerlizer(company.description)"></div>
+        </div>
+        <div class="col col-4">
+            <div class="bg-light-grey p-1">
+                <table>
+                    <tr>
+                        <th>Category:</th>
+                        <td>{{ company.categoryName }}</td>
+                    </tr>
+                    <tr>
+                        <th>Country:</th>
+                        <td>{{ company.country }}</td>
+                    </tr>
+                    <tr>
+                        <th>Region:</th>
+                        <td>{{ company.region }}</td>
+                    </tr>
+                    <tr>
+                        <th>Type:</th>
+                        <td>{{ company.type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Website:</th>
+                        <td>
+                            <a [href]="company.website" target="_blank">{{ company.website }}</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <h2 class="mb-1">Programs</h2>
+    <table class="table-stripped">
+        <thead>
+            <tr>
+                <th>Sr #</th>
+                <th>Level</th>
+                <th>Name</th>
+                <th>Activity</th>
+                <th>Project Types</th>
+                <th>Nature</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of company.programs; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ p.level }}</td>
+                <td>{{ p.name }}</td>
+                <td>{{ p.activity }}</td>
+                <td>{{ p.projectTypes }}</td>
+                <td>{{ p.nature }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="showFavoriteDialog">
+    <p-dialog header="Favorite List" [(visible)]="showFavoriteDialog" [style]="{width: '300px'}">
+        <app-add-to-favorite [company]="company"></app-add-to-favorite>
+    </p-dialog>
+</div>

@@ -28,6 +28,17 @@ namespace W1EHUB.Repo.Repository
                 .Where(company => company.Id == id)
                 .Include(company => company.StaffMembers)
                 .Include(company => company.Category)
+                .Include(company => company.Projects)
+                .FirstOrDefaultAsync();
+            return company;
+        }
+        
+        public async Task<Company> GetByIdWithProgramsAsync(int id)
+        {
+            var company = await _context.Companies
+                .Where(company => company.Id == id)
+                .Include(company => company.Category)
+                .Include(company => company.Programs)
                 .FirstOrDefaultAsync();
             return company;
         }

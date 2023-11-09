@@ -107,4 +107,14 @@ export class HomeComponent implements OnInit {
     // Call the service to get the filtered data
     this.companyService.GetCompanies(this.filterForm.value);
   }
+  GetDetailPageLink(company: any) {
+    switch (company.companyType) {
+      case "Olffi":
+        return "/company/olffi-detail/" + company.id
+        
+        default:
+        return "/company/detail/" + company.id
+    }
+  }
 }
+

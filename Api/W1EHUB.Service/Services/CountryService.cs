@@ -14,7 +14,7 @@ namespace W1EHUB.Service.Services
 
         public async Task<IEnumerable<Country>> GetAllWithRegionAsync()
         {
-            return await _countryRepository.GetAllWithRegionAsync();
+            return await _countryRepository.FindAll();
         }
     }
 }

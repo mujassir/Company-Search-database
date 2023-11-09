@@ -5,6 +5,5 @@ namespace W1EHUB.Repo.Repository.Interfaces
 {
     public interface ICountryRepository : IGenericRepository<Country>
     {
-        Task<IEnumerable<Country>> GetAllWithRegionAsync();
     }
 }

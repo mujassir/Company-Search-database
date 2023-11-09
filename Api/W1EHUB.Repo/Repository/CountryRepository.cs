@@ -13,10 +13,5 @@ namespace W1EHUB.Repo.Repository
         {
             _context = context;
         }
-
-        public async Task<IEnumerable<Country>> GetAllWithRegionAsync()
-        {
-            return await _context.Countries.Include(c => c.Region).ToListAsync();
-        }
     }
 }

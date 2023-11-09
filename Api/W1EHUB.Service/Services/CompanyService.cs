@@ -22,6 +22,7 @@ namespace W1EHUB.Service.Services
                     Name = c.Name,
                     CategoryId = c.CategoryId,
                     Country = c.Country,
+                    CompanyType = c.CompanyType,
                     Region = c.Region,
                     Website = c.Website,
                     Type = c.Type,
@@ -52,6 +53,7 @@ namespace W1EHUB.Service.Services
                 Id = company.Id,
                 Name = company.Name,
                 Description = company.Description,
+                CompanyType = company.CompanyType,
                 Country = company.Country,
                 Region = company.Region,
                 Website = company.Website,
@@ -67,7 +69,49 @@ namespace W1EHUB.Service.Services
                     Email = member.Email,
                     Phone = member.Phone,
                     CompanyId = member.CompanyId,
-                }).ToList()
+                }).OrderBy(e => e.Name).ToList(),
+                Projects = company.Projects.Select(p => new CompanyProjectDto
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Genre = p.Genre,
+                    Year = p.Year,
+                    ImagePath = p.ImagePath,
+                    Certificate = p.Certificate,
+                    RunTime = p.RunTime,
+                    Rating = p.Rating,
+                    Votes = p.Votes,
+                    CompanyId = p.CompanyId,
+                }).OrderBy(e => e.Title).ToList()
+            };
+        }
+
+        public async Task<CompanyDto> GetByIdWithProgramsAsync(int id)
+        {
+            var company = await _companyRepository.GetByIdWithProgramsAsync(id);
+            return new CompanyDto
+            {
+                Id = company.Id,
+                Name = company.Name,
+                Description = company.Description,
+                CompanyType = company.CompanyType,
+                Country = company.Country,
+                Region = company.Region,
+                Website = company.Website,
+                Type = company.Type,
+                OldDetail = company.OldDetail,
+                CategoryId = company.CategoryId,
+                CategoryName = company.Category.Name,
+                Programs = company.Programs.Select(p => new CompanyProgramDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Level = p.Level,
+                    Activity = p.Activity,
+                    ProjectTypes = p.ProjectTypes,
+                    Nature = p.Nature,
+                    CompanyId = p.CompanyId,
+                }).OrderBy(e => e.Name).ToList()
             };
         }
     }
