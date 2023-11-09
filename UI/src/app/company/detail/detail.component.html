@@ -5,7 +5,8 @@
     <div class="container p-0">
         <div class="row">
             <div class="col col-6 p-1">
-                <p-button routerLink="/" icon="pi pi-arrow-left" label="Back to list" [text]="true" [plain]="true"></p-button>
+                <p-button routerLink="/" icon="pi pi-arrow-left" label="Back to list" [text]="true"
+                    [plain]="true"></p-button>
             </div>
             <div class="col col-6 text-right">
                 <p-button icon=" pi pi-heart" [rounded]="true" [text]="true" severity="help"
@@ -14,9 +15,35 @@
         </div>
     </div>
 </div>
+
+<div class="container">
+    <h2 class="mb-1">Staff Members</h2>
+    <table class="table-stripped">
+        <thead>
+            <tr>
+                <th>Sr #</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let member of company.staffMembers; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ member.name }}</td>
+                <td>{{ member.role }}</td>
+                <td>{{ member.email }}</td>
+                <td>{{ member.phone }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 <div class="container">
     <div class="row">
-        <div class="col col-8 text-justify" [innerHTML]="company.description">
+        <div class="col col-8">
+            <h2 class="mb-1">About</h2>
+            <div class="text-justify" [innerHTML]="HTMLSerlizer(company.description)"></div>
         </div>
         <div class="col col-4">
             <div class="bg-light-grey p-1">
@@ -48,25 +75,56 @@
         </div>
     </div>
 </div>
+
+
 <div class="container">
-    <h2 class="mb-1">Staff Members</h2>
+    <h2 class="mb-1">Projects</h2>
     <table class="table-stripped">
         <thead>
             <tr>
                 <th>Sr #</th>
                 <th>Name</th>
-                <th>Role</th>
-                <th>Email</th>
-                <th>Phone</th>
+                <th>Year</th>
+                <th>Genre</th>
+                <th>Rating</th>
+                <th>Runtime</th>
+                <th>Votes</th>
+                <th>Certificate</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let member of company.staffMembers; let i = index">
+            <tr *ngFor="let project of company.projects; let i = index">
                 <td>{{ i + 1 }}</td>
-                <td>{{ member.name }}</td>
-                <td>{{ member.role }}</td>
-                <td>{{ member.email }}</td>
-                <td>{{ member.phone }}</td>
+                <td>{{ project.title }}</td>
+                <td>{{ project.year }}</td>
+                <td>{{ project.genre }}</td>
+                <td>{{ project.rating }}</td>
+                <td>{{ project.runTime }}</td>
+                <td>{{ project.votes }}</td>
+                <td>{{ project.certificate }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2 class="mb-1">Linked Companies</h2>
+    <table class="table-stripped">
+        <thead>
+            <tr>
+                <th>Sr #</th>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Region</th>
+                <th>Website</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let company of linkedByProjectCompanies; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>
+                    <a [routerLink]="'/company/detail/' + company.id">{{ company.name }}</a>
+                </td>
+                <td>{{ company.country }}</td>
+                <td>{{ company.region }}</td>
+                <td>{{ company.website }}</td>
             </tr>
         </tbody>
     </table>
