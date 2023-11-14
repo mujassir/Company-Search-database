@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { BehaviorSubject, catchError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AppConfig } from '../common/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LovService {
-  apiUrl = "https://localhost:7047";
+  apiUrl = AppConfig.API_BASE_URL;
 
   private _categories$ = new BehaviorSubject<any>([]);
   private _categoryLoader$ = new BehaviorSubject<boolean>(false);

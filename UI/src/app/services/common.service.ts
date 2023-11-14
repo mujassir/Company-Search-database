@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
+import { AppConfig } from '../common/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
-  apiUrl = "https://localhost:7047";
+  apiUrl = AppConfig.API_BASE_URL;
   constructor(private http: HttpService) { }
   
   GetStaffMembers(payload: any) {

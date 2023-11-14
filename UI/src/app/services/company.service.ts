@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { BehaviorSubject, Observable, catchError, lastValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AppConfig } from '../common/app-config';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class CompanyService {
 
   private _company$ = new BehaviorSubject<any>([]);
 
-  apiUrl = "https://localhost:7047";
+  apiUrl = AppConfig.API_BASE_URL;
   constructor(private http: HttpService) { }
 
   companies$ = this._companies$.asObservable()

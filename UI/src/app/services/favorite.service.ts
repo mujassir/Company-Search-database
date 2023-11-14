@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { BehaviorSubject, catchError, take } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AppConfig } from '../common/app-config';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,7 @@ export class FavoriteService {
     private _favoriteLoader$ = new BehaviorSubject<boolean>(false);
     private _favoriteSaveLoader$ = new BehaviorSubject<boolean>(false);
 
-    apiUrl = "https://localhost:7047";
+    apiUrl = AppConfig.API_BASE_URL;
     constructor(private http: HttpService) { }
 
     favorites$ = this._favorite$.asObservable()
