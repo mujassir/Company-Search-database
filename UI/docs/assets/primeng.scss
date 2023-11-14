@@ -1,0 +1,42 @@
+form {
+    label {
+        display: block;
+        margin: 5px 0;
+    }
+
+    .p-inputtext,
+    .p-dropdown,
+    .p-password,
+    .p-multiselect {
+        width: 100% !important;
+        color: #000;
+    }
+
+}
+
+.w-100 button {
+    width: 100%;
+}
+
+.p-menubar {
+    background-color: transparent;
+    border: none;
+}
+
+button .p-progress-spinner {
+    width: 25px;
+    height: 15px;
+
+    svg {
+        width: 80%;
+
+        & .p-progress-spinner-circle {
+            stroke: #fff !important;
+            stroke-width: 4px;
+        }
+    }
+}
+
+.p-datatable-sm {
+    font-size: 14px;
+}

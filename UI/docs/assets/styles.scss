@@ -1,0 +1,623 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.center-both {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Basic Container */
+.container {
+    max-width: 80%; // Adjust the maximum width as needed
+    margin: 0 auto;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+/* Flat Container */
+.container-flat {
+    max-width: 90%; // Adjust the maximum width as needed
+    margin: 0 auto;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+
+// Row class
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+// Column class
+.col {
+    flex: 1;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+// Column classes with numeric values
+@for $i from 1 through 12 {
+    .col-#{$i} {
+        flex: 0 0 calc((#{$i} / 12) * 100%);
+        max-width: calc((#{$i} / 12) * 100%);
+    }
+}
+
+// Margin classes
+.mt {
+    margin-top: 10px;
+}
+
+.mb {
+    margin-bottom: 10px;
+}
+
+.ml {
+    margin-left: 10px;
+}
+
+.mr {
+    margin-right: 10px;
+}
+
+.m {
+    margin: 10px;
+}
+
+.my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// Margin classes with numeric values
+@for $i from 0 through 5 {
+    .mt-#{$i} {
+        margin-top: #{$i * 10}px !important;
+    }
+
+    .mb-#{$i} {
+        margin-bottom: #{$i * 10}px !important;
+    }
+
+    .ml-#{$i} {
+        margin-left: #{$i * 10}px !important;
+    }
+
+    .mr-#{$i} {
+        margin-right: #{$i * 10}px !important;
+    }
+
+    .m-#{$i} {
+        margin: #{$i * 10}px !important;
+    }
+
+    .my-#{$i} {
+        margin-top: #{$i * 10}px !important;
+        margin-bottom: #{$i * 10}px !important;
+    }
+
+    .mx-#{$i} {
+        margin-left: #{$i * 10}px !important;
+        margin-right: #{$i * 10}px !important;
+    }
+}
+
+// Padding classes
+.pt {
+    padding-top: 10px;
+}
+
+.pb {
+    padding-bottom: 10px;
+}
+
+.pl {
+    padding-left: 10px;
+}
+
+.pr {
+    padding-right: 10px;
+}
+
+.p {
+    padding: 10px;
+}
+
+.py-auto {
+    padding-top: auto;
+    padding-bottom: auto;
+}
+
+.px-auto {
+    padding-left: auto;
+    padding-right: auto;
+}
+
+// Padding classes with numeric values
+@for $i from 0 through 5 {
+    .pt-#{$i} {
+        padding-top: #{$i * 10}px !important;
+    }
+
+    .pb-#{$i} {
+        padding-bottom: #{$i * 10}px !important;
+    }
+
+    .pl-#{$i} {
+        padding-left: #{$i * 10}px !important;
+    }
+
+    .pr-#{$i} {
+        padding-right: #{$i * 10}px !important;
+    }
+
+    .p-#{$i} {
+        padding: #{$i * 10}px !important;
+    }
+
+    .py-#{$i} {
+        padding-top: #{$i * 10}px !important;
+        padding-bottom: #{$i * 10}px !important;
+    }
+
+    .px-#{$i} {
+        padding-left: #{$i * 10}px !important;
+        padding-right: #{$i * 10}px !important;
+    }
+}
+
+// Justify classes
+.justify-start {
+    justify-content: flex-start !important;
+}
+
+.justify-end {
+    justify-content: flex-end !important;
+}
+
+.justify-center {
+    justify-content: center !important;
+}
+
+.justify-between {
+    justify-content: space-between !important;
+}
+
+.justify-around {
+    justify-content: space-around !important;
+}
+
+// Alignment classes
+.align-start {
+    align-items: flex-start;
+}
+
+.align-end {
+    align-items: flex-end;
+}
+
+.align-center {
+    align-items: center;
+}
+
+// Text classes
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-lowercase {
+    text-transform: lowercase;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.text-grey {
+    color: gray;
+}
+
+.text-danger {
+    color: rgb(199, 0, 0);
+}
+
+.align-self-start {
+    align-self: start
+}
+
+.align-self-center {
+    align-self: center
+}
+
+.align-self-end {
+    align-self: end
+}
+
+// Border classes
+.border {
+    border: 1px solid #ccc;
+}
+
+.border-left {
+    border-left: 1px solid #ccc;
+}
+
+.border-right {
+    border-right: 1px solid #ccc;
+}
+
+.border-top {
+    border-top: 1px solid #ccc;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #ccc;
+}
+
+.border-none {
+    border: none;
+}
+
+.border-rounded {
+    border-radius: 50%;
+}
+
+// Card classes
+.card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+
+    a {
+        color: #121212 !important;
+        text-decoration: none !important;
+    }
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-top: -0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+// Background classes
+.bg-primary {
+    background-color: #007bff;
+    color: #fff; // Text color for better contrast
+
+    button {
+        color: #fff;
+    }
+
+    button:hover {
+        color: #007bff;
+    }
+    .p-button-icon-only:hover {
+        color: #fff;
+    }
+}
+
+.bg-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.bg-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.bg-dark {
+    background-color: #222222;
+    color: #fff;
+}
+
+.bg-light-grey {
+    background-color: rgb(241, 241, 241);
+}
+
+/* Height classes */
+.h-0 {
+    height: 0%;
+}
+
+.h-10 {
+    height: 10%;
+}
+
+.h-20 {
+    height: 20%;
+}
+
+.h-30 {
+    height: 30%;
+}
+
+.h-40 {
+    height: 40%;
+}
+
+.h-50 {
+    height: 50%;
+}
+
+.h-60 {
+    height: 60%;
+}
+
+.h-70 {
+    height: 70%;
+}
+
+.h-80 {
+    height: 80%;
+}
+
+.h-90 {
+    height: 90%;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.vh-0 {
+    height: 0vh;
+}
+
+.vh-10 {
+    height: 10vh;
+}
+
+.vh-20 {
+    height: 20vh;
+}
+
+.vh-30 {
+    height: 30vh;
+}
+
+.vh-40 {
+    height: 40vh;
+}
+
+.vh-50 {
+    height: 50vh;
+}
+
+.vh-60 {
+    height: 60vh;
+}
+
+.vh-70 {
+    height: 70vh;
+}
+
+.vh-80 {
+    height: 80vh;
+}
+
+.vh-90 {
+    height: 90vh;
+}
+
+.vh-100 {
+    height: 100vh;
+}
+
+/* Width classes*/
+.w-0p {
+    width: 00px;
+}
+
+.w-5p {
+    width: 50px;
+}
+
+.w-10p {
+    width: 100px;
+}
+
+.w-20p {
+    width: 200px;
+}
+
+.w-30p {
+    width: 300px;
+}
+
+.w-40p {
+    width: 400px;
+}
+
+.w-50p {
+    width: 500px;
+}
+
+.w-60p {
+    width: 600px;
+}
+
+.w-70p {
+    width: 700px;
+}
+
+.w-80p {
+    width: 800px;
+}
+
+.w-90p {
+    width: 900px;
+}
+
+.w-100p {
+    width: 1000px;
+}
+
+.w-0 {
+    width: 0%;
+}
+
+.w-10 {
+    width: 10%;
+}
+
+.w-20 {
+    width: 20%;
+}
+
+.w-30 {
+    width: 30%;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.w-60 {
+    width: 60%;
+}
+
+.w-70 {
+    width: 70%;
+}
+
+.w-80 {
+    width: 80%;
+}
+
+.w-90 {
+    width: 90%;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.vw-0 {
+    width: 0vw;
+}
+
+.vw-10 {
+    width: 10vw;
+}
+
+.vw-20 {
+    width: 20vw;
+}
+
+.vw-30 {
+    width: 30vw;
+}
+
+.vw-40 {
+    width: 40vw;
+}
+
+.vw-50 {
+    width: 50vw;
+}
+
+.vw-60 {
+    width: 60vw;
+}
+
+.vw-70 {
+    width: 70vw;
+}
+
+.vw-80 {
+    width: 80vw;
+}
+
+.vw-90 {
+    width: 90vw;
+}
+
+.vw-100 {
+    width: 100vw;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.xlg-icon {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 50px !important;
+    line-height: 1;
+}
+
+// Table Styling
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+
+    th {
+        font-weight: 500
+    }
+
+    th,
+    td {
+        padding: 5px 2px;
+    }
+}
+
+.table-stripped {
+    thead {
+        background-color: #ccc;
+    }
+    tbody {
+        tr:nth-child(even) {
+            background-color: rgb(245, 245, 245);
+        }
+    }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
