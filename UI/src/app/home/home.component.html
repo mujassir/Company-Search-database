@@ -11,7 +11,7 @@
             <h3>West One Entertainment</h3>
             <span class="p-input-icon-right w-40">
                 <input type="text" class="w-100" pInputText [(ngModel)]="searchValue" placeholder="Search"
-                    (keyup)="getDataDetails()" />
+                    (keyup.enter)="getDataDetails()" />
                 <i [class]="companyLoader ? 'pi cursor-pointer pi-spin pi-spinner' : 'pi cursor-pointer pi-search'"
                     (click)="getDataDetails()"></i>
             </span>
@@ -60,7 +60,7 @@
 <div *ngIf="companies.length > 0" class="container">
     <h1>Search results</h1>
     <p-table #companyTable [value]="companies" [rows]="10" [showCurrentPageReport]="true"
-        [rowsPerPageOptions]="[10, 25, 50]" [loading]="companyLoader" [paginator]="true"
+        [rowsPerPageOptions]="[10, 25, 50]" (onPage)="onChangePage($event)" [loading]="companyLoader" [paginator]="true"
         styleClass="p-datatable-striped p-datatable-sm" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
@@ -76,6 +76,9 @@
                 <td *ngFor="let col of companyColumns" class="py-1">
                     <div [ngSwitch]="col.value">
                         <a *ngSwitchCase="'name'" [routerLink]="GetDetailPageLink(product)">
+                            {{product[col.value]}}
+                        </a>
+                        <a *ngSwitchCase="'website'" [href]="product.website" target="_blank">
                             {{product[col.value]}}
                         </a>
 

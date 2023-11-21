@@ -25,6 +25,7 @@ import { SharedFooterComponent } from './components/shared/footer/footer.compone
 import { CompanyDetailComponent } from './company/detail/detail.component';
 import { AddToFavoriteComponent } from './components/company/add-to-favorite/add-to-favorite.component';
 import { CompanyOlffiDetailComponent } from './company/olffi-detail/olffi-detail.component';
+import { ReadmoreContentComponent } from './components/readmore-content/readmore-content.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { CompanyOlffiDetailComponent } from './company/olffi-detail/olffi-detail
     CompanyDetailComponent,
     AddToFavoriteComponent,
     CompanyOlffiDetailComponent,
+    ReadmoreContentComponent,
   ],
   imports: [
     BrowserModule,

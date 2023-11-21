@@ -50,19 +50,23 @@ export class HomeComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    const existingValue = this.companyService.searchFilter
+    this.searchValue = existingValue.Company;
     this.filterForm = new FormGroup({
-      "Country": new FormControl(''),
-      "Company": new FormControl(''),
-      "Website": new FormControl(''),
-      "CategoryId": new FormControl(''),
-      "Region": new FormControl(''),
+      "Country": new FormControl(existingValue.Country),
+      "Company": new FormControl(existingValue.Company),
+      "Website": new FormControl(existingValue.Website),
+      "CategoryId": new FormControl(existingValue.CategoryId),
+      "Region": new FormControl(existingValue.Region),
     });
 
     this.companyService.companies$.subscribe(data => {
       this.companies = data;
       if (data.length > 10) {
+
         setTimeout(() => {
-          this.companyTable.first = 1;
+          const rowNumber = this.companyService.searchFilter.rowNumber
+          this.companyTable.first = rowNumber
         }, 100);
       }
     });
@@ -100,7 +104,9 @@ export class HomeComponent implements OnInit {
     this.SelectedCompany = company;
     this.showFavoriteDialog = true;
   }
-
+  onChangePage(e: any) {
+    this.companyService.searchFilter.rowNumber = e.first
+  }
   // Fetch companies data
   getDataDetails() {
     this.filterForm.get("Company")?.setValue(this.searchValue)
@@ -111,8 +117,8 @@ export class HomeComponent implements OnInit {
     switch (company.companyType) {
       case "Olffi":
         return "/company/olffi-detail/" + company.id
-        
-        default:
+
+      default:
         return "/company/detail/" + company.id
     }
   }

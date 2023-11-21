@@ -43,7 +43,9 @@
     <div class="row">
         <div class="col col-8">
             <h2 class="mb-1">About</h2>
-            <div class="text-justify" [innerHTML]="HTMLSerlizer(company.description)"></div>
+            <app-readmore-content *ngIf="company.description" [content]="HTMLSerlizer(company.description) || ''"
+                [displayLength]="1000"></app-readmore-content>
+            <div class="text-justify" [innerHTML]=""></div>
         </div>
         <div class="col col-4">
             <div class="bg-light-grey p-1">

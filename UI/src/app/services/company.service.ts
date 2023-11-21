@@ -16,6 +16,15 @@ export class CompanyService {
 
   private _company$ = new BehaviorSubject<any>([]);
 
+  searchFilter = {
+    rowNumber: 1,
+    Country: '',
+    Company: '',
+    Website: '',
+    CategoryId: '',
+    Region: '',
+  }
+
   apiUrl = AppConfig.API_BASE_URL;
   constructor(private http: HttpService) { }
 
@@ -28,6 +37,12 @@ export class CompanyService {
   company$ = this._company$.asObservable()
 
   GetCompanies(payload: any) {
+    this.searchFilter = {
+      ...payload,
+      rowNumber: 1
+    }
+    console.log(this.searchFilter);
+
     this._companyLoader$.next(true)
     this.http.SendRequest("get", `${this.apiUrl}/Company/Search?country=${payload.Country || ''}&company=${payload.Company || ''}&website=${payload.Website || ''}&categoryId=${payload.CategoryId || ''}&region=${payload.Region || ''}`)
       .pipe(

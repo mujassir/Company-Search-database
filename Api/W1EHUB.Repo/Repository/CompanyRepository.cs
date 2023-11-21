@@ -48,11 +48,11 @@ namespace W1EHUB.Repo.Repository
             return await _context.Companies
                 .Include(c => c.Category)
                 .Where(s =>
-                    (string.IsNullOrEmpty(country) || s.Country == country) &&
-                    (string.IsNullOrEmpty(region) || s.Region == region) &&
+                    (string.IsNullOrEmpty(country) || s.Country.Contains(country)) &&
+                    (string.IsNullOrEmpty(region) || s.Region.Contains(region)) &&
                     (categoryId == null || categoryId.Contains(s.CategoryId)) &&
-                    (string.IsNullOrEmpty(company) || s.Name == company) &&
-                    (string.IsNullOrEmpty(website) || s.Website == website))
+                    (string.IsNullOrEmpty(company) || s.Name.Contains(company)) &&
+                    (string.IsNullOrEmpty(website) || s.Website.Contains(website)))
                 .ToListAsync();
         }
     }
