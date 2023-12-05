@@ -22,6 +22,12 @@ namespace W1EHUB.Api.Controllers
             var data = await _favoriteService.GetFavoriteCompaniesByIdAsync(userId, companyId);
             return Ok(data);
         }
+        [HttpGet("CompanyByFavoriteId")]
+        public async Task<IActionResult> GetCompanyByFavoriteId(int favoriteId)
+        {
+            var data = await _favoriteService.GetCompaniesByFavoriteIdAsync(favoriteId);
+            return Ok(data);
+        }
         [HttpPost]
         public async Task<IActionResult> POST(FavoriteCompany_Payload data)
         {

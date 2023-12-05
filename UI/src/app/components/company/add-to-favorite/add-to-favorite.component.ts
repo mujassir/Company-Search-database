@@ -11,6 +11,7 @@ export class AddToFavoriteComponent implements OnInit {
   @Input() company: any = {}
   favorites!: any;
   favoriteLoader!: boolean;
+  favoriteSaveLoader!: boolean;
 
   selectedItems: any[] = []
   AddTitleArea = false;
@@ -29,6 +30,9 @@ export class AddToFavoriteComponent implements OnInit {
     this.favoriteService.favoriteLoader$.subscribe(data => {
       this.favoriteLoader = data;
     });
+    this.favoriteService.favoriteSaveLoader$.subscribe(data => {
+      this.favoriteSaveLoader = data;
+    });
     this.favoriteService.GetFavorites(this.user.userId);
 
     this.favoriteCompanyService.favorites$.subscribe(data => {
@@ -38,6 +42,7 @@ export class AddToFavoriteComponent implements OnInit {
   }
 
   createFavorite() {
+    if(!this.title) return
     const payload = {
       title: this.title,
       userId: this.user.userId

@@ -43,17 +43,40 @@ namespace W1EHUB.Repo.Repository
             return company;
         }
 
-        public async Task<IEnumerable<Company>> SearchCompanyAsync(string? country, string? region, int[] categoryId, string? company, string? website)
+        public async Task<IEnumerable<Company>> SearchCompanyAsync(string[]? countryNames, string[]? regionNames, int[]? categoryId, string? company, string? website)
         {
-            return await _context.Companies
+            var query = _context.Companies
                 .Include(c => c.Category)
-                .Where(s =>
-                    (string.IsNullOrEmpty(country) || s.Country.Contains(country)) &&
-                    (string.IsNullOrEmpty(region) || s.Region.Contains(region)) &&
-                    (categoryId == null || categoryId.Contains(s.CategoryId)) &&
-                    (string.IsNullOrEmpty(company) || s.Name.Contains(company)) &&
-                    (string.IsNullOrEmpty(website) || s.Website.Contains(website)))
-                .ToListAsync();
+                .AsQueryable(); // Create the base query
+
+            // Apply filters based on parameters
+            if (countryNames != null && countryNames.Any())
+            {
+                query = query.Where(s => countryNames.Contains(s.Country));
+            }
+
+            if (regionNames != null && regionNames.Any())
+            {
+                query = query.Where(s => regionNames.Contains(s.Region));
+            }
+
+            if (categoryId != null && categoryId.Any())
+            {
+                query = query.Where(s => categoryId.Contains(s.CategoryId));
+            }
+
+            if (company != null && company.Any())
+            {
+                query = query.Where(s => company == s.Name || company == s.Region || company == s.Country);
+            }
+
+            if (!string.IsNullOrEmpty(website))
+            {
+                query = query.Where(s => s.Website.Contains(website));
+            }
+
+            return await query.ToListAsync();
         }
+
     }
 }
