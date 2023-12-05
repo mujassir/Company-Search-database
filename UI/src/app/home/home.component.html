@@ -26,20 +26,23 @@
             <div *ngIf="showFilter" class="row justify-center">
                 <div class="col col-3">
                     <label>Company Type</label>
-                    <p-multiSelect [options]="categories" formControlName="CategoryId" optionValue="id"
-                        optionLabel="name" placeholder="Select Type" [showClear]="true"></p-multiSelect>
+                    <p-multiSelect [options]="categories" formControlName="CategoryId" optionValue="id" [filter]="false"
+                        [showToggleAll]="false" optionLabel="name" placeholder="Select Type"
+                        [showClear]="true"></p-multiSelect>
                 </div>
 
                 <div class="col col-3">
                     <label>Country</label>
                     <p-multiSelect [options]="countries" formControlName="Country" optionValue="name" optionLabel="name"
-                        placeholder="Select Country" [showClear]="true"></p-multiSelect>
+                        [filter]="false" [showToggleAll]="false" placeholder="Select Country"
+                        [showClear]="true"></p-multiSelect>
                 </div>
 
                 <div class="col col-3">
                     <label>Region</label>
                     <p-multiSelect [options]="regions" formControlName="Region" optionValue="name" optionLabel="name"
-                        placeholder="Select Region" [showClear]="true"></p-multiSelect>
+                        [filter]="false" [showToggleAll]="false" placeholder="Select Region"
+                        [showClear]="true"></p-multiSelect>
                 </div>
 
                 <div class="col col-12 text-center pt-2">
@@ -57,40 +60,54 @@
 </div>
 
 <!-- Table start From here -->
-<div *ngIf="companies.length > 0" class="container">
-    <h1>Search results</h1>
-    <p-table #companyTable [value]="companies" [rows]="10" [showCurrentPageReport]="true"
-        [rowsPerPageOptions]="[10, 25, 50]" (onPage)="onChangePage($event)" [loading]="companyLoader" [paginator]="true"
-        styleClass="p-datatable-striped p-datatable-sm" [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
-            <tr>
-                <th *ngFor="let col of companyColumns" [pSortableColumn]="col.value" class="nowrap p-1"
-                    style="width:20%">
-                    {{col.name}}
-                    <p-sortIcon [field]="col.value"></p-sortIcon>
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product>
-            <tr>
-                <td *ngFor="let col of companyColumns" class="py-1">
-                    <div [ngSwitch]="col.value">
-                        <a *ngSwitchCase="'name'" [routerLink]="GetDetailPageLink(product)">
-                            {{product[col.value]}}
-                        </a>
-                        <a *ngSwitchCase="'website'" [href]="product.website" target="_blank">
-                            {{product[col.value]}}
-                        </a>
+<div class="container">
+    <div class="row justify-space-between">
+        <div class="col">
+            <h1>Search results</h1>
+        </div>
+        <div class="col col-3 align-self-center form">
+            <p-dropdown [options]="favorites" [(ngModel)]="selectedFavoriteList" optionLabel="title" filterBy="title"
+                [showClear]="true" placeholder="Select a Favorite List" (onChange)="FilterChanged()">
+            </p-dropdown>
+        </div>
+    </div>
+    <div *ngIf="companies.length > 0">
+        <p-table #companyTable [value]="companies" [rows]="10" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10, 25, 50]" (onPage)="onChangePage($event)" [loading]="companyLoader"
+            [paginator]="true" styleClass="p-datatable-striped p-datatable-sm" [tableStyle]="{'min-width': '50rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let col of companyColumns" [pSortableColumn]="col.value" class="nowrap p-1"
+                        style="width:20%">
+                        {{col.name}}
+                        <p-sortIcon [field]="col.value"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td *ngFor="let col of companyColumns" class="py-1">
+                        <div [ngSwitch]="col.value">
+                            <a *ngSwitchCase="'name'" [routerLink]="GetDetailPageLink(product)">
+                                {{product[col.value]}}
+                            </a>
+                            <span *ngSwitchCase="'website'">
+                                <a *ngIf="ModifyUrl(product.website)" [href]="ModifyUrl(product.website)"
+                                    target="_blank">
+                                    {{product[col.value]}}
+                                </a>
+                            </span>
 
-                        <p-button *ngSwitchCase="'action'" icon=" pi pi-heart" [rounded]="true" [text]="true"
-                            severity="help" (onClick)="clickFavoriteBtn(product)"></p-button>
+                            <p-button *ngSwitchCase="'action'" icon=" pi pi-heart" [rounded]="true" [text]="true"
+                                severity="help" (onClick)="clickFavoriteBtn(product)"></p-button>
 
-                        <span *ngSwitchDefault>{{product[col.value]}}</span>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+                            <span *ngSwitchDefault>{{product[col.value]}}</span>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 <div *ngIf="showFavoriteDialog">
     <p-dialog header="Favorite List" [(visible)]="showFavoriteDialog" [style]="{width: '300px'}">

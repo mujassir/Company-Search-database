@@ -8,6 +8,6 @@ namespace W1EHUB.Service.Interfaces
         Task<IEnumerable<Company>> GetAllWithStaffMembersAsync();
         Task<CompanyDto> GetByIdWithStaffMembersAsync(int id);
         Task<CompanyDto> GetByIdWithProgramsAsync(int id);
-        Task<IEnumerable<CompanyDto>> SearchCompanyAsync(string? country, string? region, int[] categoryId, string? company, string? website);
+        Task<IEnumerable<CompanyDto>> SearchCompanyAsync(string[]? countryNames, string[]? regionNames, int[]? categoryId, string? company, string? website);
     }
 }

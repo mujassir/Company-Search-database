@@ -8,5 +8,5 @@
 </div>
 <div>
     <p-button *ngIf="!AddTitleArea" label="Create Title" [outlined]="true" (onClick)="AddTitleArea = !AddTitleArea"></p-button>
-    <p-button *ngIf="AddTitleArea" label="Save" [outlined]="true" (onClick)="createFavorite()"></p-button>
+    <p-button *ngIf="AddTitleArea" label="Save" [outlined]="true" [loading]="favoriteSaveLoader" (onClick)="createFavorite()"></p-button>
 </div>

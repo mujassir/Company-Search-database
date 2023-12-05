@@ -18,6 +18,7 @@ export class CompanyService {
 
   searchFilter = {
     rowNumber: 1,
+    rows: 10,
     Country: '',
     Company: '',
     Website: '',
@@ -39,7 +40,8 @@ export class CompanyService {
   GetCompanies(payload: any) {
     this.searchFilter = {
       ...payload,
-      rowNumber: 1
+      rowNumber: 0,
+      rows: 10
     }
     console.log(this.searchFilter);
 

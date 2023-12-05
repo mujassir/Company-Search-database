@@ -3,6 +3,8 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { CompanyService } from '../services/company.service';
 import { LovService } from '../services/lov.service';
+import { FavoriteService } from '../services/favorite.service';
+import { FavoriteCompanyService } from '../services/favouriteCompany.service';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +31,12 @@ export class HomeComponent implements OnInit {
   showFavoriteDialog = false;
   SelectedCompany: any = {};
 
+  favorites!: any;
+  selectedFavoriteList = null
+
+  user: any
+
+
   companyColumns: any = [
     { name: "CATEGORY", value: "categoryName" },
     { name: "COMPANY", value: "name" },
@@ -41,7 +49,9 @@ export class HomeComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private lovService: LovService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private favoriteService: FavoriteService,
+    private favoriteCompanyService: FavoriteCompanyService
   ) {
     this.filterForm = this.formBuilder.group({
       CategoryId: [],
@@ -66,7 +76,9 @@ export class HomeComponent implements OnInit {
 
         setTimeout(() => {
           const rowNumber = this.companyService.searchFilter.rowNumber
+          const rows = this.companyService.searchFilter.rows
           this.companyTable.first = rowNumber
+          this.companyTable.rows = rows
         }, 100);
       }
     });
@@ -98,20 +110,52 @@ export class HomeComponent implements OnInit {
       this.regions = data;
     });
 
-  }
+    this.favoriteService.favorites$.subscribe(data => {
+      this.favorites = data;
+    });
+    this.favoriteCompanyService.companiesByFavoriteId$.subscribe(data => {
+      this.companies = data;
+    });
+    this.favoriteCompanyService.companiesByFavoriteIdLoader$.subscribe(data => {
+      this.companyLoader = false;
+    });
 
+    this.user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.favoriteService.GetFavorites(this.user.userId);
+
+  }
+  ModifyUrl(url: string) {
+    if (!url) return false
+    if (url === "No Website") return false
+    if (!url.startsWith("http")) return `https://${url}`
+    return url;
+
+  }
   clickFavoriteBtn(company: any) {
     this.SelectedCompany = company;
     this.showFavoriteDialog = true;
   }
+  FilterChanged() {
+    if (!this.selectedFavoriteList) {
+      this.companies = []
+      return
+    };
+    this.companyLoader = true
+    this.getCompaniesByFavoriteId(this.selectedFavoriteList["id"]);
+  }
   onChangePage(e: any) {
     this.companyService.searchFilter.rowNumber = e.first
+    this.companyService.searchFilter.rows = e.rows
   }
   // Fetch companies data
   getDataDetails() {
+    this.selectedFavoriteList = null
     this.filterForm.get("Company")?.setValue(this.searchValue)
     // Call the service to get the filtered data
     this.companyService.GetCompanies(this.filterForm.value);
+  }
+  getCompaniesByFavoriteId(id: number) {
+    this.favoriteCompanyService.GetCompaniesByFavId(id)
   }
   GetDetailPageLink(company: any) {
     switch (company.companyType) {

@@ -6,5 +6,6 @@ namespace W1EHUB.Repo.Repository.Interfaces
     public interface IFavoriteCompanyRepository : IGenericRepository<FavoriteCompany>
     {
         Task<IEnumerable<FavoriteCompany>> GetFavoriteCompaniesByIdAsync(int userId, int companyId);
+        Task<IEnumerable<FavoriteCompany>> GetCompaniesByFavoriteIdAsync(int favoriteId);
     }
 }

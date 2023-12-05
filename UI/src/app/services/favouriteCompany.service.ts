@@ -10,6 +10,8 @@ import { AppConfig } from '../common/app-config';
 })
 export class FavoriteCompanyService {
   private _favorite$ = new BehaviorSubject<any>([]);
+  private _companiesByFavoriteId$ = new BehaviorSubject<any>([]);
+  private _companiesByFavoriteIdLoader$ = new BehaviorSubject<any>([]);
   private _favoriteLoader$ = new BehaviorSubject<boolean>(false);
   private _favoriteSaveLoader$ = new BehaviorSubject<boolean>(false);
 
@@ -17,7 +19,9 @@ export class FavoriteCompanyService {
   constructor(private http: HttpService) { }
 
   favorites$ = this._favorite$.asObservable()
+  companiesByFavoriteId$ = this._companiesByFavoriteId$.asObservable()
   favoriteLoader$ = this._favoriteLoader$.asObservable()
+  companiesByFavoriteIdLoader$ = this._companiesByFavoriteIdLoader$.asObservable()
   favoriteSaveLoader$ = this._favoriteSaveLoader$.asObservable()
 
   GetFavorites(id: number, companyId: number) {
@@ -35,7 +39,20 @@ export class FavoriteCompanyService {
         this._favoriteLoader$.next(false);
       })
   }
-
+  GetCompaniesByFavId(favId: number) {
+    this.http.SendRequest("get", `${this.apiUrl}/FavoriteCompany/CompanyByFavoriteId?favoriteId=${favId}`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this._companiesByFavoriteId$.next([])
+          this._companiesByFavoriteIdLoader$.next(false);
+          throw error;
+        })
+      )
+      .subscribe(data => {
+        this._companiesByFavoriteId$.next(data)
+        this._companiesByFavoriteIdLoader$.next(false);
+      })
+  }
   CreateFavorite(payload: any, userId: number) {
     this._favoriteSaveLoader$.next(true)
     this.http.SendRequest("post", `${this.apiUrl}/FavoriteCompany`, payload)

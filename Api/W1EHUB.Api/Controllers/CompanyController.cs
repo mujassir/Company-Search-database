@@ -60,8 +60,7 @@ namespace W1EHUB.Api.Controllers
         public async Task<IActionResult> SearchCompanyAsync(string? country, string? region, string? categoryId, string? company, string? website)
         {
             var categoryIds = categoryId?.Split(",").Select(int.Parse).ToArray() ?? null;
-
-            var data = await _companyService.SearchCompanyAsync(country, region, categoryIds, company, website);
+            var data = await _companyService.SearchCompanyAsync(country?.Split(","), region?.Split(","), categoryIds, company, website);
             return Ok(data);
         }
 
