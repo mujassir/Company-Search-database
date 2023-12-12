@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace W1EHUB.Repo.Migrations
 {
     /// <inheritdoc />
@@ -29,7 +27,7 @@ namespace W1EHUB.Repo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Country",
+                name: "Countries",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -40,7 +38,7 @@ namespace W1EHUB.Repo.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Country", x => x.Id);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -89,7 +87,7 @@ namespace W1EHUB.Repo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Region",
+                name: "Regions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -101,17 +99,17 @@ namespace W1EHUB.Repo.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Region", x => x.Id);
+                    table.PrimaryKey("PK_Regions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Region_Country_CountryId",
+                        name: "FK_Regions_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Favorite",
+                name: "Favorites",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -123,9 +121,9 @@ namespace W1EHUB.Repo.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Favorite", x => x.Id);
+                    table.PrimaryKey("PK_Favorites", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Favorite_Users_UserId",
+                        name: "FK_Favorites_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -233,77 +231,22 @@ namespace W1EHUB.Repo.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FavoriteCompany_Favorite_FavoriteId",
+                        name: "FK_FavoriteCompany_Favorites_FavoriteId",
                         column: x => x.FavoriteId,
-                        principalTable: "Favorite",
+                        principalTable: "Favorites",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
-                table: "Country",
-                columns: new[] { "Id", "CreateAt", "Name", "UpdatedAt" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3781), "England", null },
-                    { 2, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3783), "Scotland", null },
-                    { 3, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3784), "Wales", null },
-                    { 4, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3785), "Northern Ireland", null }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreateAt", "Email", "Password", "UpdatedAt" },
-                values: new object[] { 1, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3656), "abc@email.com", "abc", null });
-
-            migrationBuilder.InsertData(
-                table: "Region",
-                columns: new[] { "Id", "CountryId", "CreateAt", "Name", "UpdatedAt" },
-                values: new object[,]
-                {
-                    { 1, 1, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3799), "North East England", null },
-                    { 2, 1, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3801), "North West England", null },
-                    { 3, 1, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3802), "Yorkshire and the Humber", null },
-                    { 4, 1, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3839), "West Midlands", null },
-                    { 5, 1, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3840), "East Midlands", null },
-                    { 6, 1, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3841), "East of England", null },
-                    { 7, 1, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3843), "South West England", null },
-                    { 8, 1, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3844), "London", null },
-                    { 9, 1, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3845), "South East England", null },
-                    { 10, 2, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3846), "Highlands and Islands", null },
-                    { 11, 2, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3847), "North East Scotland", null },
-                    { 12, 2, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3848), "Central Scotland", null },
-                    { 13, 2, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3849), "South of Scotland", null },
-                    { 14, 2, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3850), "Glasgow", null },
-                    { 15, 2, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3851), "Edinburgh and the Lothians", null },
-                    { 16, 2, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3852), "West of Scotland", null },
-                    { 17, 3, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3853), "North Wales", null },
-                    { 18, 3, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3854), "Mid Wales", null },
-                    { 19, 3, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3856), "South Wales", null },
-                    { 20, 3, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3857), "Cardiff", null },
-                    { 21, 3, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3858), "Swansea", null },
-                    { 22, 3, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3859), "Newport", null },
-                    { 23, 4, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3860), "Antrim and Newtownabbey", null },
-                    { 24, 4, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3861), "Armagh, Banbridge, and Craigavon", null },
-                    { 25, 4, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3862), "Belfast", null },
-                    { 26, 4, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3863), "Causeway Coast and Glens", null },
-                    { 27, 4, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3864), "Derry and Strabane", null },
-                    { 28, 4, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3865), "Fermanagh and Omagh", null },
-                    { 29, 4, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3866), "Lisburn and Castlereagh", null },
-                    { 30, 4, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3867), "Mid and East Antrim", null },
-                    { 31, 4, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3868), "Mid Ulster", null },
-                    { 32, 4, new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3869), "Newry, Mourne, and Down", null }
-                });
+                values: new object[] { 1, new DateTime(2023, 12, 12, 17, 47, 20, 202, DateTimeKind.Local).AddTicks(3449), "abc@email.com", "abc", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_CategoryId",
                 table: "Companies",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Favorite_UserId",
-                table: "Favorite",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FavoriteCompany_CompanyId",
@@ -316,6 +259,11 @@ namespace W1EHUB.Repo.Migrations
                 column: "FavoriteId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Favorites_UserId",
+                table: "Favorites",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Programs_CompanyId",
                 table: "Programs",
                 column: "CompanyId");
@@ -326,8 +274,8 @@ namespace W1EHUB.Repo.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Region_CountryId",
-                table: "Region",
+                name: "IX_Regions_CountryId",
+                table: "Regions",
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
@@ -349,16 +297,16 @@ namespace W1EHUB.Repo.Migrations
                 name: "Projects");
 
             migrationBuilder.DropTable(
-                name: "Region");
+                name: "Regions");
 
             migrationBuilder.DropTable(
                 name: "StaffMembers");
 
             migrationBuilder.DropTable(
-                name: "Favorite");
+                name: "Favorites");
 
             migrationBuilder.DropTable(
-                name: "Country");
+                name: "Countries");
 
             migrationBuilder.DropTable(
                 name: "Companies");

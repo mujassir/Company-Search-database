@@ -12,8 +12,8 @@ using W1EHUB.Repo.Data;
 namespace W1EHUB.Repo.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20231109064203__init")]
-    partial class _init
+    [Migration("20231212130358_updateFavoriteCompaniesName")]
+    partial class updateFavoriteCompaniesName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,33 +118,7 @@ namespace W1EHUB.Repo.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Country");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3781),
-                            Name = "England"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3783),
-                            Name = "Scotland"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3784),
-                            Name = "Wales"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3785),
-                            Name = "Northern Ireland"
-                        });
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("W1EHUB.Core.Model.Favorite", b =>
@@ -172,7 +146,7 @@ namespace W1EHUB.Repo.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Favorite");
+                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("W1EHUB.Core.Model.FavoriteCompany", b =>
@@ -201,7 +175,7 @@ namespace W1EHUB.Repo.Migrations
 
                     b.HasIndex("FavoriteId");
 
-                    b.ToTable("FavoriteCompany");
+                    b.ToTable("FavoriteCompanies");
                 });
 
             modelBuilder.Entity("W1EHUB.Core.Model.Program", b =>
@@ -320,233 +294,7 @@ namespace W1EHUB.Repo.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Region");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CountryId = 1,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3799),
-                            Name = "North East England"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CountryId = 1,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3801),
-                            Name = "North West England"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CountryId = 1,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3802),
-                            Name = "Yorkshire and the Humber"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CountryId = 1,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3839),
-                            Name = "West Midlands"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CountryId = 1,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3840),
-                            Name = "East Midlands"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CountryId = 1,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3841),
-                            Name = "East of England"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CountryId = 1,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3843),
-                            Name = "South West England"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CountryId = 1,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3844),
-                            Name = "London"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CountryId = 1,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3845),
-                            Name = "South East England"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CountryId = 2,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3846),
-                            Name = "Highlands and Islands"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CountryId = 2,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3847),
-                            Name = "North East Scotland"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CountryId = 2,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3848),
-                            Name = "Central Scotland"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CountryId = 2,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3849),
-                            Name = "South of Scotland"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CountryId = 2,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3850),
-                            Name = "Glasgow"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            CountryId = 2,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3851),
-                            Name = "Edinburgh and the Lothians"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            CountryId = 2,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3852),
-                            Name = "West of Scotland"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            CountryId = 3,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3853),
-                            Name = "North Wales"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            CountryId = 3,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3854),
-                            Name = "Mid Wales"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            CountryId = 3,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3856),
-                            Name = "South Wales"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CountryId = 3,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3857),
-                            Name = "Cardiff"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            CountryId = 3,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3858),
-                            Name = "Swansea"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            CountryId = 3,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3859),
-                            Name = "Newport"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            CountryId = 4,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3860),
-                            Name = "Antrim and Newtownabbey"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            CountryId = 4,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3861),
-                            Name = "Armagh, Banbridge, and Craigavon"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            CountryId = 4,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3862),
-                            Name = "Belfast"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            CountryId = 4,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3863),
-                            Name = "Causeway Coast and Glens"
-                        },
-                        new
-                        {
-                            Id = 27,
-                            CountryId = 4,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3864),
-                            Name = "Derry and Strabane"
-                        },
-                        new
-                        {
-                            Id = 28,
-                            CountryId = 4,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3865),
-                            Name = "Fermanagh and Omagh"
-                        },
-                        new
-                        {
-                            Id = 29,
-                            CountryId = 4,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3866),
-                            Name = "Lisburn and Castlereagh"
-                        },
-                        new
-                        {
-                            Id = 30,
-                            CountryId = 4,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3867),
-                            Name = "Mid and East Antrim"
-                        },
-                        new
-                        {
-                            Id = 31,
-                            CountryId = 4,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3868),
-                            Name = "Mid Ulster"
-                        },
-                        new
-                        {
-                            Id = 32,
-                            CountryId = 4,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3869),
-                            Name = "Newry, Mourne, and Down"
-                        });
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("W1EHUB.Core.Model.StaffMember", b =>
@@ -617,7 +365,7 @@ namespace W1EHUB.Repo.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2023, 11, 9, 11, 42, 3, 25, DateTimeKind.Local).AddTicks(3656),
+                            CreateAt = new DateTime(2023, 12, 12, 18, 3, 57, 928, DateTimeKind.Local).AddTicks(7914),
                             Email = "abc@email.com",
                             Password = "abc"
                         });

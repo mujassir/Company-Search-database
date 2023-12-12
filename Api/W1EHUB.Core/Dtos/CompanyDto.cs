@@ -14,6 +14,7 @@ namespace W1EHUB.Core.Dtos
         public string OldDetail { get; set; }
         public int? CategoryId { get; set; }
         public string? CategoryName { get; set; }
+        public string? FavoriteIds { get; set; }
 
         // Navigation property to represent the staff members associated with the company
         public List<CompanyStaffMemberDto> StaffMembers { get; set; } = new List<CompanyStaffMemberDto>();

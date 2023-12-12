@@ -16,19 +16,7 @@ namespace W1EHUB.Service.Services
         public async Task<IEnumerable<CompanyDto>> SearchCompanyAsync(string[]? countryNames, string[]? regionNames, int[]? categoryId, string? company, string? website)
         {
             var data = await _companyRepository.SearchCompanyAsync(countryNames, regionNames, categoryId, company, website);
-            return data.Select(c => new CompanyDto
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    CategoryId = c.CategoryId,
-                    Country = c.Country,
-                    CompanyType = c.CompanyType,
-                    Region = c.Region,
-                    Website = c.Website,
-                    Type = c.Type,
-                    CategoryName = c.Category.Name
-                })
-                .ToList();
+            return data.ToList();
         }
         public async Task<IEnumerable<Company>> GetAllWithStaffMembersAsync()
         {

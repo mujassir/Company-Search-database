@@ -1,4 +1,5 @@
-﻿using W1EHUB.Core.Model;
+﻿using W1EHUB.Core.Dtos;
+using W1EHUB.Core.Model;
 using W1EHUB.Repo.Repository.Interfaces;
 using W1EHUB.Service.Interfaces;
 
@@ -12,9 +13,10 @@ namespace W1EHUB.Service.Services
             _countryRepository = countryRepository;
         }
 
-        public async Task<IEnumerable<Country>> GetAllWithRegionAsync()
+        public async Task<IEnumerable<CountryDto>> GetAllWithCountryCountAsync()
         {
-            return await _countryRepository.FindAll();
+            var res = await _countryRepository.GetAllWithCountryCountAsync();
+            return res;
         }
     }
 }

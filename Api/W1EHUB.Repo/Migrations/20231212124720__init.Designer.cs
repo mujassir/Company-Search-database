@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using W1EHUB.Repo.Data;
 
@@ -11,9 +12,11 @@ using W1EHUB.Repo.Data;
 namespace W1EHUB.Repo.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20231212124720__init")]
+    partial class _init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,7 +175,7 @@ namespace W1EHUB.Repo.Migrations
 
                     b.HasIndex("FavoriteId");
 
-                    b.ToTable("FavoriteCompanies");
+                    b.ToTable("FavoriteCompany");
                 });
 
             modelBuilder.Entity("W1EHUB.Core.Model.Program", b =>
@@ -362,7 +365,7 @@ namespace W1EHUB.Repo.Migrations
                         new
                         {
                             Id = 1,
-                            CreateAt = new DateTime(2023, 12, 12, 18, 3, 57, 928, DateTimeKind.Local).AddTicks(7914),
+                            CreateAt = new DateTime(2023, 12, 12, 17, 47, 20, 202, DateTimeKind.Local).AddTicks(3449),
                             Email = "abc@email.com",
                             Password = "abc"
                         });
