@@ -23,7 +23,7 @@ namespace W1EHUB.Service.Services
             var data = await _favoriteRepository.GetCompaniesByFavoriteIdAsync(favoriteId);
             return data.Select(c => new CompanyDto
             {
-                Id = c.Id,
+                Id = c.Company.Id,
                 Name = c.Company.Name,
                 CategoryId = c.Company.CategoryId,
                 Country = c.Company.Country,
@@ -31,7 +31,8 @@ namespace W1EHUB.Service.Services
                 Region = c.Company.Region,
                 Website = c.Company.Website,
                 Type = c.Company.Type,
-                CategoryName = c.Company.Category.Name
+                CategoryName = c.Company.Category.Name,
+                FavoriteIds = c.FavoriteId.ToString()
             })
             .ToList();
         }

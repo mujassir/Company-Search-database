@@ -68,4 +68,16 @@ export class FavoriteCompanyService {
         this._favoriteSaveLoader$.next(false);
       })
   }
+  RemoveFavorite(payload: any, userId: number) {
+    this.http.SendRequest("delete", `${this.apiUrl}/FavoriteCompany?favoriteId=${payload.favoriteId}&companyId=${payload.companyId}`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this._favorite$.next([])
+          throw error;
+        })
+      )
+      .subscribe(data => {
+        this.GetFavorites(userId, payload.companyId)
+      })
+  }
 }

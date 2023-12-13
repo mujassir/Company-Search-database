@@ -53,4 +53,17 @@ export class FavoriteService {
                 this._favoriteSaveLoader$.next(false);
             })
     }
+
+    DeleteFavorite(id: number, userId: number) {
+        this.http.SendRequest("delete", `${this.apiUrl}/Favorite?id=${id}`)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    console.error(error.message)
+                    throw error;
+                })
+            )
+            .subscribe(data => {
+                this.GetFavorites(userId)
+            })
+    }
 }

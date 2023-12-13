@@ -1,5 +1,35 @@
-::ng-deep .p-multiselect-no-header {
-    .p-multiselect-header {
-        display: none;
+::ng-deep {
+    .p-multiselect-no-header {
+        .p-multiselect-header {
+            display: none;
+        }
+    }
+
+    .favorite-list {
+        .p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
+            color: #495057;
+            background: #ffffff !important;
+            cursor: context-menu !important;
+        }
+
+        .deleteIcon {
+            float: right;
+            cursor: pointer;
+        }
+
+        .favoriteListTitle {
+            float: left;
+            cursor: pointer
+        }
+
+        .favoriteListTitle:hover {
+            color: #282a2c;
+        }
+    }
+    .deleteConfirmDialog {
+        .p-dialog .p-dialog-header,
+        .p-dialog .p-dialog-content {
+            padding-bottom: 0px !important;
+        }
     }
 }

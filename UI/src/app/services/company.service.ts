@@ -24,6 +24,7 @@ export class CompanyService {
     Website: '',
     CategoryId: '',
     Region: '',
+    isFavoriteSelected: false,
   }
 
   apiUrl = AppConfig.API_BASE_URL;

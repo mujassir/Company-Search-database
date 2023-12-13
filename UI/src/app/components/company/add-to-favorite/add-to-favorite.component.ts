@@ -14,17 +14,17 @@ export class AddToFavoriteComponent implements OnInit {
   favoriteSaveLoader!: boolean;
 
   selectedItems: any[] = []
+  CompanySelectedItems: any[] = []
   AddTitleArea = false;
   title: string = ""
   user: any
   constructor(private favoriteService: FavoriteService, private favoriteCompanyService: FavoriteCompanyService) { }
 
   ngOnInit(): void {
-    
+
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
     this.favoriteService.favorites$.subscribe(data => {
       this.favorites = data;
-      this.selectedItems = this.favorites.filter((e: any) => data.map((item: any) => item.favoriteId).includes(e.id));
       this.title = ""
     });
     this.favoriteService.favoriteLoader$.subscribe(data => {
@@ -36,13 +36,14 @@ export class AddToFavoriteComponent implements OnInit {
     this.favoriteService.GetFavorites(this.user.userId);
 
     this.favoriteCompanyService.favorites$.subscribe(data => {
-      this.selectedItems = this.favorites.filter((e: any) => data.map((item: any) => item.favoriteId).includes(e.id));
+      this.selectedItems = this.favorites.filter((fav: any) => data.map((item: any) => item.favoriteId).includes(fav.id));
+      this.CompanySelectedItems = JSON.parse(JSON.stringify(this.selectedItems))
     });
     this.favoriteCompanyService.GetFavorites(this.user.userId, this.company.id)
   }
 
   createFavorite() {
-    if(!this.title) return
+    if (!this.title) return
     const payload = {
       title: this.title,
       userId: this.user.userId
@@ -50,10 +51,16 @@ export class AddToFavoriteComponent implements OnInit {
     this.favoriteService.CreateFavorite(payload)
   }
   AddToFavorite(item: any) {
+    console.log(item, this.CompanySelectedItems);
     const payload = {
       favoriteId: item.id,
       companyId: this.company.id
     }
-    this.favoriteCompanyService.CreateFavorite(payload, this.user.userId)
+    if (this.CompanySelectedItems.map(e => e.id).includes(item.id)) {
+      this.favoriteCompanyService.RemoveFavorite(payload, this.user.userId)
+    } else {
+      this.favoriteCompanyService.CreateFavorite(payload, this.user.userId)
+    }
+
   }
 }
