@@ -7,11 +7,10 @@
             AND FOREIGN FUNDING OPPORTUNITIES.</h3>
         <div class="pt-2">
 
-            <!-- TODO: Company Name -->
-            <h3>West One Entertainment</h3>
+            <h3>W1E HUB</h3>
             <span class="p-input-icon-right w-40">
                 <input type="text" class="w-100" pInputText [(ngModel)]="searchValue" placeholder="Search"
-                    (keyup.enter)="getDataDetails()" />
+                    (keyup)="getDataDetails()" />
                 <i [class]="companyLoader ? 'pi cursor-pointer pi-spin pi-spinner' : 'pi cursor-pointer pi-search'"
                     (click)="getDataDetails()"></i>
             </span>
@@ -26,23 +25,28 @@
             <div *ngIf="showFilter" class="row justify-center">
                 <div class="col col-3">
                     <label>Company Type</label>
-                    <p-multiSelect [options]="categories" formControlName="CategoryId" optionValue="id" [filter]="false"
-                        [showToggleAll]="false" optionLabel="name" placeholder="Select Type"
-                        [showClear]="true"></p-multiSelect>
+                    <p-multiSelect class="p-multiselect-no-header" [options]="categories" formControlName="CategoryId"
+                        optionValue="id" [filter]="false" [showToggleAll]="false" optionLabel="name"
+                        placeholder="Select Type" [showClear]="true"></p-multiSelect>
                 </div>
 
                 <div class="col col-3">
                     <label>Country</label>
-                    <p-multiSelect [options]="countries" formControlName="Country" optionValue="name" optionLabel="name"
-                        [filter]="false" [showToggleAll]="false" placeholder="Select Country"
-                        [showClear]="true"></p-multiSelect>
+                    <p-multiSelect class="p-multiselect-no-header" [options]="countries" formControlName="Country"
+                        optionValue="name" optionLabel="name" [filter]="false" [showToggleAll]="false"
+                        placeholder="Select Country" [showClear]="true">
+                        <ng-template let-country pTemplate="item">
+                            <div>{{ country.name }} <small class="text-grey">({{ country.numberOfCompanies}})</small>
+                            </div>
+                        </ng-template>
+                    </p-multiSelect>
                 </div>
 
                 <div class="col col-3">
                     <label>Region</label>
-                    <p-multiSelect [options]="regions" formControlName="Region" optionValue="name" optionLabel="name"
-                        [filter]="false" [showToggleAll]="false" placeholder="Select Region"
-                        [showClear]="true"></p-multiSelect>
+                    <p-multiSelect class="p-multiselect-no-header" [options]="regions" formControlName="Region"
+                        optionValue="name" optionLabel="name" [filter]="false" [showToggleAll]="false"
+                        placeholder="Select Region" [showClear]="true"></p-multiSelect>
                 </div>
 
                 <div class="col col-12 text-center pt-2">
@@ -65,9 +69,15 @@
         <div class="col">
             <h1>Search results</h1>
         </div>
-        <div class="col col-3 align-self-center form">
+        <div class="col col-3 align-self-center form favorite-list">
             <p-dropdown [options]="favorites" [(ngModel)]="selectedFavoriteList" optionLabel="title" filterBy="title"
                 [showClear]="true" placeholder="Select a Favorite List" (onChange)="FilterChanged()">
+                <ng-template let-favorite pTemplate="item">
+                    <div class="p-clearfix">
+                        <div class="favoriteListTitle">{{ favorite.title }}</div>
+                        <i class="pi pi-trash deleteIcon" (click)="deleteFavorite(favorite.id)"></i>
+                    </div>
+                </ng-template>
             </p-dropdown>
         </div>
     </div>
@@ -98,8 +108,9 @@
                                 </a>
                             </span>
 
-                            <p-button *ngSwitchCase="'action'" icon=" pi pi-heart" [rounded]="true" [text]="true"
-                                severity="help" (onClick)="clickFavoriteBtn(product)"></p-button>
+                            <p-button *ngSwitchCase="'action'"
+                                [icon]="product.favoriteIds ? 'pi pi-heart-fill' : 'pi pi-heart'" [rounded]="true"
+                                [text]="true" severity="help" (onClick)="clickFavoriteBtn(product)"></p-button>
 
                             <span *ngSwitchDefault>{{product[col.value]}}</span>
                         </div>
@@ -114,3 +125,16 @@
         <app-add-to-favorite [company]="SelectedCompany"></app-add-to-favorite>
     </p-dialog>
 </div>
+<!-- Confirmation Dialog -->
+<p-confirmDialog #confirmDialog [style]="{ width: '30vw' }" maskStyleClass="deleteConfirmDialog">
+    <ng-template pTemplate="header">
+        <h3 class="m-0">Confirmation</h3>
+    </ng-template>
+    <ng-template pTemplate="message">
+        <p>Are you sure you want to delete this favorite list?</p>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-times" label="No" (click)="confirmDialog.reject()"></button>
+        <button type="button" pButton icon="pi pi-check" label="Yes" (click)="confirmDialog.accept()"></button>
+    </ng-template>
+</p-confirmDialog>

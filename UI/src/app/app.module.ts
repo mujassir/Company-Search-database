@@ -26,7 +26,7 @@ import { CompanyDetailComponent } from './company/detail/detail.component';
 import { AddToFavoriteComponent } from './components/company/add-to-favorite/add-to-favorite.component';
 import { CompanyOlffiDetailComponent } from './company/olffi-detail/olffi-detail.component';
 import { ReadmoreContentComponent } from './components/readmore-content/readmore-content.component';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [
@@ -59,6 +59,7 @@ import { ReadmoreContentComponent } from './components/readmore-content/readmore
     PasswordModule,
     ProgressSpinnerModule,
     MultiSelectModule,
+    ConfirmDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

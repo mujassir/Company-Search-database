@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using W1EHUB.Core.Dtos;
 using W1EHUB.Core.Model;
 using W1EHUB.Repo.Data;
@@ -43,10 +44,36 @@ namespace W1EHUB.Repo.Repository
             return company;
         }
 
-        public async Task<IEnumerable<Company>> SearchCompanyAsync(string[]? countryNames, string[]? regionNames, int[]? categoryId, string? company, string? website)
+        public async Task<IEnumerable<CompanyDto>> SearchCompanyAsync(string[]? countryNames, string[]? regionNames, int[]? categoryId, string? company, string? website)
         {
             var query = _context.Companies
                 .Include(c => c.Category)
+                .GroupJoin(
+                    _context.FavoriteCompanies,
+                    company => company.Id,
+                    favoriteCompany => favoriteCompany.CompanyId,
+                    (company, favoriteCompanies) => new { Company = company, Favorites = favoriteCompanies.DefaultIfEmpty() }
+                )
+                .SelectMany(
+                    x => x.Favorites,
+                    (company, favorite) => new CompanyDto
+                    {
+                        Id = company.Company.Id,
+                        Name = company.Company.Name,
+                        Country = company.Company.Country,
+                        Region = company.Company.Region,
+                        Website = company.Company.Website,
+                        CategoryId = company.Company.CategoryId,
+                        CategoryName = company.Company!.Category.Name,
+                        Description = company.Company.Description,
+                        CompanyType = company.Company.CompanyType,
+                        OldDetail = company.Company.OldDetail,
+                        FavoriteIds = string.Join(",", company.Favorites
+                                                    .Where(f => f != null)
+                                                    .Select(f => f.Id)
+                                                    .ToArray())
+                    }
+                )
                 .AsQueryable(); // Create the base query
 
             // Apply filters based on parameters
@@ -62,12 +89,12 @@ namespace W1EHUB.Repo.Repository
 
             if (categoryId != null && categoryId.Any())
             {
-                query = query.Where(s => categoryId.Contains(s.CategoryId));
+                query = query.Where(s => categoryId.ToList().Contains((int)s.CategoryId));
             }
 
             if (company != null && company.Any())
             {
-                query = query.Where(s => company == s.Name || company == s.Region || company == s.Country);
+                query = query.Where(s => s.Name.StartsWith(company) || s.Region.StartsWith(company) || s.Country.StartsWith(company));
             }
 
             if (!string.IsNullOrEmpty(website))
@@ -77,6 +104,7 @@ namespace W1EHUB.Repo.Repository
 
             return await query.ToListAsync();
         }
+
 
     }
 }

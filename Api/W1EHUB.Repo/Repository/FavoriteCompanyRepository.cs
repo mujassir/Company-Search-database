@@ -16,7 +16,7 @@ namespace W1EHUB.Repo.Repository
 
         public async Task<IEnumerable<FavoriteCompany>> GetCompaniesByFavoriteIdAsync(int favoriteId)
         {
-            return await _context.FavoriteCompany
+            return await _context.FavoriteCompanies
                 .Include(a => a.Company)
                 .Include(a => a.Company.Category)
                 .Where(f => f.FavoriteId == favoriteId)
@@ -25,7 +25,7 @@ namespace W1EHUB.Repo.Repository
 
         public async Task<IEnumerable<FavoriteCompany>> GetFavoriteCompaniesByIdAsync(int userId, int companyId)
         {
-            return await _context.FavoriteCompany
+            return await _context.FavoriteCompanies
                 .Include(a => a.Company)
                 .Include(a => a.Favorite)
                 .Where(f => f.Favorite.UserId == userId && f.CompanyId == companyId)

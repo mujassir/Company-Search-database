@@ -16,7 +16,7 @@ namespace W1EHUB.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GET()
         {
-            var data = await _countryService.GetAllWithRegionAsync();
+            var data = await _countryService.GetAllWithCountryCountAsync();
             return Ok(data);
         }
     }

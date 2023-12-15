@@ -5,11 +5,13 @@ import { CompanyService } from '../services/company.service';
 import { LovService } from '../services/lov.service';
 import { FavoriteService } from '../services/favorite.service';
 import { FavoriteCompanyService } from '../services/favouriteCompany.service';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  providers: [ConfirmationService]
 })
 export class HomeComponent implements OnInit {
   @ViewChild('companyTable') companyTable!: Table;
@@ -33,6 +35,7 @@ export class HomeComponent implements OnInit {
 
   favorites!: any;
   selectedFavoriteList = null
+  isFavoriteSelected = false
 
   user: any
 
@@ -51,7 +54,8 @@ export class HomeComponent implements OnInit {
     private lovService: LovService,
     private formBuilder: FormBuilder,
     private favoriteService: FavoriteService,
-    private favoriteCompanyService: FavoriteCompanyService
+    private favoriteCompanyService: FavoriteCompanyService,
+    private confirmationService: ConfirmationService
   ) {
     this.filterForm = this.formBuilder.group({
       CategoryId: [],
@@ -71,12 +75,18 @@ export class HomeComponent implements OnInit {
     });
 
     this.companyService.companies$.subscribe(data => {
-      this.companies = data;
+      const searchFilter = this.companyService.searchFilter
+      if (!searchFilter.isFavoriteSelected) {
+        this.companies = data;
+      } else {
+        this.isFavoriteSelected = true
+      }
+
       if (data.length > 10) {
 
         setTimeout(() => {
-          const rowNumber = this.companyService.searchFilter.rowNumber
-          const rows = this.companyService.searchFilter.rows
+          const rowNumber = searchFilter.rowNumber
+          const rows = searchFilter.rows
           this.companyTable.first = rowNumber
           this.companyTable.rows = rows
         }, 100);
@@ -114,7 +124,9 @@ export class HomeComponent implements OnInit {
       this.favorites = data;
     });
     this.favoriteCompanyService.companiesByFavoriteId$.subscribe(data => {
-      this.companies = data;
+      if (this.isFavoriteSelected) {
+        this.companies = data;
+      }
     });
     this.favoriteCompanyService.companiesByFavoriteIdLoader$.subscribe(data => {
       this.companyLoader = false;
@@ -155,6 +167,8 @@ export class HomeComponent implements OnInit {
     this.companyService.GetCompanies(this.filterForm.value);
   }
   getCompaniesByFavoriteId(id: number) {
+    this.isFavoriteSelected = true
+    this.companyService.searchFilter.isFavoriteSelected = true
     this.favoriteCompanyService.GetCompaniesByFavId(id)
   }
   GetDetailPageLink(company: any) {
@@ -165,6 +179,15 @@ export class HomeComponent implements OnInit {
       default:
         return "/company/detail/" + company.id
     }
+  }
+  deleteFavorite(id: number) {
+    this.confirmationService.confirm({
+      accept: () => {
+        this.favoriteService.DeleteFavorite(id, this.user.userId)
+      },
+      reject: () => { },
+    });
+
   }
 }
 

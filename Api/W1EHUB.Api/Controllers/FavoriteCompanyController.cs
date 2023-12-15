@@ -41,5 +41,15 @@ namespace W1EHUB.Api.Controllers
             await _favoriteService.Save();
             return Ok(res);
         }
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int favoriteId, int companyId)
+        {
+            var favorites = await _favoriteService.FindByCondition(e => e.FavoriteId == favoriteId && e.CompanyId == companyId);
+            if (!favorites.Any()) return NotFound();
+            var favorite = favorites.FirstOrDefault();
+            await _favoriteService.Delete(favorite);
+            await _favoriteService.Save();
+            return Ok();
+        }
     }
 }
