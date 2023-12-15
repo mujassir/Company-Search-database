@@ -125,7 +125,7 @@ export class HomeComponent implements OnInit {
     });
     this.favoriteCompanyService.companiesByFavoriteId$.subscribe(data => {
       if (this.isFavoriteSelected) {
-        this.companies = data;
+        this.companies = this.selectedFavoriteList ? data : [];
       }
     });
     this.favoriteCompanyService.companiesByFavoriteIdLoader$.subscribe(data => {
@@ -163,6 +163,10 @@ export class HomeComponent implements OnInit {
   getDataDetails() {
     this.selectedFavoriteList = null
     this.filterForm.get("Company")?.setValue(this.searchValue)
+    if (!this.searchValue) {
+      this.companies = []
+      return
+    }
     // Call the service to get the filtered data
     this.companyService.GetCompanies(this.filterForm.value);
   }
@@ -181,6 +185,9 @@ export class HomeComponent implements OnInit {
     }
   }
   deleteFavorite(id: number) {
+    setTimeout(() => {
+      this.selectedFavoriteList = null
+    }, 10);
     this.confirmationService.confirm({
       accept: () => {
         this.favoriteService.DeleteFavorite(id, this.user.userId)

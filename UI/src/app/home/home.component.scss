@@ -12,21 +12,30 @@
             cursor: context-menu !important;
         }
 
+        .p-dropdown-item {
+            padding: 0;
+        }
+
         .deleteIcon {
             float: right;
             cursor: pointer;
+            padding: 10px 20px;
         }
 
         .favoriteListTitle {
             float: left;
-            cursor: pointer
+            cursor: pointer;
+            width: calc(100% - 56px);
+            padding: 10px 20px;
         }
 
         .favoriteListTitle:hover {
             color: #282a2c;
         }
     }
+
     .deleteConfirmDialog {
+
         .p-dialog .p-dialog-header,
         .p-dialog .p-dialog-content {
             padding-bottom: 0px !important;
