@@ -162,8 +162,10 @@ export class HomeComponent implements OnInit {
   // Fetch companies data
   getDataDetails() {
     this.filterForm.get("Company")?.setValue(this.searchValue)
-    // Call the service to get the filtered data
-
+    if (!this.searchValue) {
+      this.companies = []
+      return
+    }
     this.getCompanies()
   }
   getCompanies() {
@@ -182,6 +184,13 @@ export class HomeComponent implements OnInit {
 
       default:
         return "/company/detail/" + company.id
+    }
+  }
+  favoriteSuccess(status: boolean) {
+    if (this.selectedFavoriteList) {
+      this.getCompaniesByFavoriteId(this.selectedFavoriteList["id"]);
+    } else {
+      this.getCompanies()
     }
   }
   deleteFavorite(id: number) {

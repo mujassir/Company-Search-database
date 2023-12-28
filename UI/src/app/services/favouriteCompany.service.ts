@@ -53,33 +53,39 @@ export class FavoriteCompanyService {
         this._companiesByFavoriteIdLoader$.next(false);
       })
   }
-  CreateFavorite(payload: any, userId: number, selectedFavId: number) {
-    this._favoriteSaveLoader$.next(true)
-    this.http.SendRequest("post", `${this.apiUrl}/FavoriteCompany`, payload)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          this._favorite$.next([])
+  CreateFavorite(payload: any, userId: number) {
+    return new Promise((resolve, reject) => {
+      this._favoriteSaveLoader$.next(true)
+      this.http.SendRequest("post", `${this.apiUrl}/FavoriteCompany`, payload)
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            this._favorite$.next([])
+            this._favoriteSaveLoader$.next(false);
+            reject(false);
+            throw error;
+          })
+        )
+        .subscribe(data => {
+          this.GetFavorites(userId, payload.companyId)
           this._favoriteSaveLoader$.next(false);
-          throw error;
+          resolve(true)
         })
-      )
-      .subscribe(data => {
-        this.GetFavorites(userId, payload.companyId)
-        this.GetCompaniesByFavId(selectedFavId)
-        this._favoriteSaveLoader$.next(false);
-      })
+    })
   }
-  RemoveFavorite(payload: any, userId: number, selectedFavId: number) {
-    this.http.SendRequest("delete", `${this.apiUrl}/FavoriteCompany?favoriteId=${payload.favoriteId}&companyId=${payload.companyId}`)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          this._favorite$.next([])
-          throw error;
+  RemoveFavorite(payload: any, userId: number) {
+    return new Promise((resolve, reject) => {
+      this.http.SendRequest("delete", `${this.apiUrl}/FavoriteCompany?favoriteId=${payload.favoriteId}&companyId=${payload.companyId}`)
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            this._favorite$.next([])
+            reject(error)
+            throw error;
+          })
+        )
+        .subscribe(data => {
+          this.GetFavorites(userId, payload.companyId)
+          resolve(true)
         })
-      )
-      .subscribe(data => {
-        this.GetFavorites(userId, payload.companyId)
-        this.GetCompaniesByFavId(selectedFavId)
-      })
+    })
   }
 }
