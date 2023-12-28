@@ -6,7 +6,8 @@
     <label> Title</label> <br>
     <input class="mt-1" type="text" pInputText [(ngModel)]="title" />
 </div>
-<div>
+<div class="d-flex justify-between">
     <p-button *ngIf="!AddTitleArea" label="Create Title" [outlined]="true" (onClick)="AddTitleArea = !AddTitleArea"></p-button>
     <p-button *ngIf="AddTitleArea" label="Save" [outlined]="true" [loading]="favoriteSaveLoader" (onClick)="createFavorite()"></p-button>
+    <p-button label="OK" [outlined]="true" (onClick)="close.emit()"></p-button>
 </div>

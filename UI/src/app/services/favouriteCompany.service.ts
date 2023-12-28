@@ -53,7 +53,7 @@ export class FavoriteCompanyService {
         this._companiesByFavoriteIdLoader$.next(false);
       })
   }
-  CreateFavorite(payload: any, userId: number) {
+  CreateFavorite(payload: any, userId: number, selectedFavId: number) {
     this._favoriteSaveLoader$.next(true)
     this.http.SendRequest("post", `${this.apiUrl}/FavoriteCompany`, payload)
       .pipe(
@@ -65,10 +65,11 @@ export class FavoriteCompanyService {
       )
       .subscribe(data => {
         this.GetFavorites(userId, payload.companyId)
+        this.GetCompaniesByFavId(selectedFavId)
         this._favoriteSaveLoader$.next(false);
       })
   }
-  RemoveFavorite(payload: any, userId: number) {
+  RemoveFavorite(payload: any, userId: number, selectedFavId: number) {
     this.http.SendRequest("delete", `${this.apiUrl}/FavoriteCompany?favoriteId=${payload.favoriteId}&companyId=${payload.companyId}`)
       .pipe(
         catchError((error: HttpErrorResponse) => {
@@ -78,6 +79,7 @@ export class FavoriteCompanyService {
       )
       .subscribe(data => {
         this.GetFavorites(userId, payload.companyId)
+        this.GetCompaniesByFavId(selectedFavId)
       })
   }
 }

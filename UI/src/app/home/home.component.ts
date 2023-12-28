@@ -161,9 +161,13 @@ export class HomeComponent implements OnInit {
   }
   // Fetch companies data
   getDataDetails() {
-    this.selectedFavoriteList = null
     this.filterForm.get("Company")?.setValue(this.searchValue)
     // Call the service to get the filtered data
+
+    this.getCompanies()
+  }
+  getCompanies() {
+    this.selectedFavoriteList = null
     this.companyService.GetCompanies(this.filterForm.value);
   }
   getCompaniesByFavoriteId(id: number) {
