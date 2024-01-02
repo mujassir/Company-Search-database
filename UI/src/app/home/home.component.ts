@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
     { name: "CATEGORY", value: "categoryName" },
     { name: "COMPANY", value: "name" },
     { name: "COUNTRY", value: "country" },
+    { name: "REGION", value: "region" },
     { name: "WEBSITE", value: "website" },
     { name: "TYPE", value: "type" },
     { name: "", value: "action" },
@@ -161,9 +162,15 @@ export class HomeComponent implements OnInit {
   }
   // Fetch companies data
   getDataDetails() {
-    this.selectedFavoriteList = null
     this.filterForm.get("Company")?.setValue(this.searchValue)
-    // Call the service to get the filtered data
+    if (!this.searchValue) {
+      this.companies = []
+      return
+    }
+    this.getCompanies()
+  }
+  getCompanies() {
+    this.selectedFavoriteList = null
     this.companyService.GetCompanies(this.filterForm.value);
   }
   getCompaniesByFavoriteId(id: number) {
@@ -178,6 +185,13 @@ export class HomeComponent implements OnInit {
 
       default:
         return "/company/detail/" + company.id
+    }
+  }
+  favoriteSuccess(status: boolean) {
+    if (this.selectedFavoriteList) {
+      this.getCompaniesByFavoriteId(this.selectedFavoriteList["id"]);
+    } else {
+      this.getCompanies()
     }
   }
   deleteFavorite(id: number) {

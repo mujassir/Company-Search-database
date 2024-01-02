@@ -94,7 +94,7 @@ namespace W1EHUB.Repo.Repository
 
             if (company != null && company.Any())
             {
-                query = query.Where(s => s.Name.StartsWith(company) || s.Region.StartsWith(company) || s.Country.StartsWith(company));
+                query = query.Where(s => s.CategoryName.StartsWith(company) || s.Name.StartsWith(company) || s.Region.StartsWith(company) || s.Country.StartsWith(company));
             }
 
             if (!string.IsNullOrEmpty(website))

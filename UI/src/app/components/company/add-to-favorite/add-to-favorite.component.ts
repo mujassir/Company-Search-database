@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FavoriteService } from 'src/app/services/favorite.service';
 import { FavoriteCompanyService } from 'src/app/services/favouriteCompany.service';
 
@@ -9,6 +9,9 @@ import { FavoriteCompanyService } from 'src/app/services/favouriteCompany.servic
 })
 export class AddToFavoriteComponent implements OnInit {
   @Input() company: any = {}
+  @Output() close = new EventEmitter();
+  @Output() success = new EventEmitter<boolean>();
+
   favorites!: any;
   favoriteLoader!: boolean;
   favoriteSaveLoader!: boolean;
@@ -50,17 +53,19 @@ export class AddToFavoriteComponent implements OnInit {
     }
     this.favoriteService.CreateFavorite(payload)
   }
-  AddToFavorite(item: any) {
-    console.log(item, this.CompanySelectedItems);
+  async AddToFavorite(item: any) {
     const payload = {
       favoriteId: item.id,
       companyId: this.company.id
     }
+    let res;
     if (this.CompanySelectedItems.map(e => e.id).includes(item.id)) {
-      this.favoriteCompanyService.RemoveFavorite(payload, this.user.userId)
+      res = await this.favoriteCompanyService.RemoveFavorite(payload, this.user.userId)
     } else {
-      this.favoriteCompanyService.CreateFavorite(payload, this.user.userId)
+      res = await this.favoriteCompanyService.CreateFavorite(payload, this.user.userId)
     }
-
+    if (res == true) {
+      this.success.emit(true)
+    }
   }
 }

@@ -131,9 +131,8 @@
         </tbody>
     </table>
 </div>
-
 <div *ngIf="showFavoriteDialog">
     <p-dialog header="Favorite List" [(visible)]="showFavoriteDialog" [style]="{width: '300px'}">
-        <app-add-to-favorite [company]="company"></app-add-to-favorite>
+        <app-add-to-favorite [company]="company" (close)="showFavoriteDialog = false"></app-add-to-favorite>
     </p-dialog>
 </div>

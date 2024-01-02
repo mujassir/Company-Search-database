@@ -2,12 +2,10 @@
 <div>
     <div class="bg-dark py-2"></div>
     <div class="container text-center pt-4 pb-5">
-        <h1>Search Database</h1>
+        <h1>W1E HUB</h1>
         <h3>WELCOME TO THE W1E HUB! A DATABASE FOR FILM & TV COMPANIES, ALONG WITH DOMESTIC
             AND FOREIGN FUNDING OPPORTUNITIES.</h3>
         <div class="pt-2">
-
-            <h3>W1E HUB</h3>
             <span class="p-input-icon-right w-40">
                 <input type="text" class="w-100" pInputText [(ngModel)]="searchValue" placeholder="Search"
                     (keyup)="getDataDetails()" />
@@ -50,7 +48,7 @@
                 </div>
 
                 <div class="col col-12 text-center pt-2">
-                    <button [disabled]="companyLoader" pButton (click)="getDataDetails()">
+                    <button [disabled]="companyLoader" pButton (click)="getCompanies()">
                         <p-progressSpinner *ngIf="companyLoader"></p-progressSpinner>
                         Search
                     </button>
@@ -109,7 +107,7 @@
                             </span>
 
                             <p-button *ngSwitchCase="'action'"
-                                [icon]="product.favoriteIds ? 'pi pi-heart-fill' : 'pi pi-heart'" [rounded]="true"
+                                [icon]="product.favoriteIds ? 'pi pi-heart-fill' : 'pi pi-plus'" [rounded]="true"
                                 [text]="true" severity="help" (onClick)="clickFavoriteBtn(product)"></p-button>
 
                             <span *ngSwitchDefault>{{product[col.value]}}</span>
@@ -122,7 +120,7 @@
 </div>
 <div *ngIf="showFavoriteDialog">
     <p-dialog header="Favorite List" [(visible)]="showFavoriteDialog" [style]="{width: '300px'}">
-        <app-add-to-favorite [company]="SelectedCompany"></app-add-to-favorite>
+        <app-add-to-favorite [company]="SelectedCompany" (success)="favoriteSuccess($event)" (close)="showFavoriteDialog = false"></app-add-to-favorite>
     </p-dialog>
 </div>
 <!-- Confirmation Dialog -->
