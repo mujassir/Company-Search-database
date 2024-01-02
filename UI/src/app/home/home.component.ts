@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
     { name: "CATEGORY", value: "categoryName" },
     { name: "COMPANY", value: "name" },
     { name: "COUNTRY", value: "country" },
+    { name: "REGION", value: "region" },
     { name: "WEBSITE", value: "website" },
     { name: "TYPE", value: "type" },
     { name: "", value: "action" },
