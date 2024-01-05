@@ -1,13 +1,16 @@
+<p class="mt-0"><strong>Company:</strong> {{ company.name }}</p>
 <div *ngFor="let item of favorites">
-    <p-checkbox class="mb-1" [(ngModel)]="selectedItems" [value]="item" [label]="item.title"
-        [inputId]="item.id" (onChange)="AddToFavorite(item)"></p-checkbox>
+    <p-checkbox class="mb-1" [(ngModel)]="selectedItems" [value]="item" [label]="item.title" [inputId]="item.id"
+        (onChange)="AddToFavorite(item)"></p-checkbox>
 </div>
 <div *ngIf="AddTitleArea" class="my-2">
     <label> Title</label> <br>
     <input class="mt-1" type="text" pInputText [(ngModel)]="title" />
 </div>
-<div class="d-flex justify-between">
-    <p-button *ngIf="!AddTitleArea" styleClass="btn-width" label="New List" [outlined]="true" (onClick)="AddTitleArea = !AddTitleArea"></p-button>
-    <p-button *ngIf="AddTitleArea" styleClass="btn-width" label="Save" [outlined]="true" [loading]="favoriteSaveLoader" (onClick)="createFavorite()"></p-button>
+<div class="d-flex justify-between mt-1">
+    <p-button *ngIf="!AddTitleArea" styleClass="btn-width" label="New List" [outlined]="true"
+        (onClick)="AddTitleArea = !AddTitleArea"></p-button>
+    <p-button *ngIf="AddTitleArea" styleClass="btn-width" label="Save" [outlined]="true" [loading]="favoriteSaveLoader"
+        (onClick)="createFavorite()"></p-button>
     <p-button label="OK" styleClass="btn-width" [outlined]="true" (onClick)="close.emit()"></p-button>
 </div>

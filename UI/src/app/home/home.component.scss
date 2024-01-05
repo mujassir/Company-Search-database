@@ -26,10 +26,18 @@
             color: #282a2c;
         }
     }
+
     .deleteConfirmDialog {
+
         .p-dialog .p-dialog-header,
         .p-dialog .p-dialog-content {
             padding-bottom: 0px !important;
+        }
+    }
+
+    .favorite-dialog {
+        .p-dialog-header {
+            padding-bottom: 10px;
         }
     }
 }

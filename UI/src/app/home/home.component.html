@@ -119,7 +119,7 @@
     </div>
 </div>
 <div *ngIf="showFavoriteDialog">
-    <p-dialog header="Favorite List" [(visible)]="showFavoriteDialog" [style]="{width: '300px'}">
+    <p-dialog header="Favorite List" styleClass="favorite-dialog" [modal]="true" [(visible)]="showFavoriteDialog" [style]="{width: '400px'}">
         <app-add-to-favorite [company]="SelectedCompany" (success)="favoriteSuccess($event)" (close)="showFavoriteDialog = false"></app-add-to-favorite>
     </p-dialog>
 </div>
